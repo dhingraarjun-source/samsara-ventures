@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samsara Ventures | M&amp;A, Divestiture and Transformation Advisory</title>
+<meta name="description" content="Samsara Ventures is a New York advisory firm helping companies buy, separate, integrate and restructure businesses. Senior-led M&A, carve-out and cost transformation work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --stone: #E6EAE9;
+    --paper: #F5F7F6;
+    --ink: #1E2A38;
+    --ink-soft: #4A5767;
+    --saffron: #D9952B;
+    --river: #2F5D62;
+    --rule: #C3CDCD;
+    --sans: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --serif: "Source Serif 4", Georgia, serif;
+    --wrap: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--river); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--saffron); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
+
+  /* Header */
+  .site-header { padding: 26px 0; }
+  .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-family: var(--sans); font-weight: 700; font-size: 1.2rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+  .brand svg { width: 30px; height: 30px; }
+  .nav { display: flex; gap: 28px; font-family: var(--sans); font-weight: 500; font-size: 0.98rem; }
+  .nav a { color: var(--ink); text-decoration: none; }
+  .nav a:hover { color: var(--river); text-decoration: underline; }
+
+  /* Hero */
+  .hero { padding: 56px 0 96px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+  .hero h1 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 5.6vw, 4.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin: 0 0 28px;
+    max-width: 13ch;
+  }
+  .hero p.lede { font-size: 1.28rem; line-height: 1.6; color: var(--ink-soft); max-width: 34em; margin: 0 0 36px; }
+  .btn {
+    display: inline-block;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 15px 26px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: 999px;
+    transition: background .2s;
+  }
+  .btn:hover { background: var(--river); }
+  .hero .secondary { margin-left: 22px; font-family: var(--sans); font-weight: 500; color: var(--ink); }
+
+  .cycle { width: 100%; max-width: 440px; justify-self: end; }
+  .cycle .arc { fill: none; stroke-width: 22; stroke-linecap: round; }
+  .cycle .a1 { stroke: var(--ink); }
+  .cycle .a2 { stroke: var(--saffron); }
+  .cycle .a3 { stroke: var(--river); }
+  .cycle g { transform-origin: 220px 220px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .cycle .g1 { animation: part1 7s ease-in-out infinite; }
+    .cycle .g2 { animation: part2 7s ease-in-out infinite; }
+    .cycle .g3 { animation: part3 7s ease-in-out infinite; }
+    .cycle .spin { animation: turn 42s linear infinite; }
+  }
+  @keyframes turn { to { transform: rotate(360deg); } }
+  @keyframes part1 { 0%,15%,85%,100% { transform: translate(0,0); } 40%,60% { transform: translate(0,-26px); } }
+  @keyframes part2 { 0%,15%,85%,100% { transform: translate(0,0); } 40%,60% { transform: translate(23px,13px); } }
+  @keyframes part3 { 0%,15%,85%,100% { transform: translate(0,0); } 40%,60% { transform: translate(-23px,13px); } }
+
+  /* Sections */
+  section { padding: 96px 0; }
+  .band { background: var(--stone); }
+  .section-head { display: grid; grid-template-columns: 1fr 2fr; gap: 56px; margin-bottom: 56px; }
+  h2 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+  .section-head p { margin: 0; color: var(--ink-soft); max-width: 36em; font-size: 1.2rem; }
+  h3 { font-family: var(--sans); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.015em; margin: 0 0 10px; line-height: 1.2; }
+
+  /* Practices */
+  .practices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .practice { border-top: 3px solid var(--ink); padding-top: 22px; }
+  .practice:nth-child(2) { border-color: var(--saffron); }
+  .practice:nth-child(3) { border-color: var(--river); }
+  .practice p { margin: 0 0 16px; color: var(--ink-soft); }
+  .practice ul { margin: 0; padding: 0; list-style: none; font-size: 1rem; }
+  .practice li { padding: 7px 0; border-bottom: 1px solid var(--rule); }
+
+  /* Process: a real sequence */
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .steps::before { content: ""; position: absolute; top: 21px; left: 22px; right: calc(25% - 22px); height: 2px; background: var(--rule); }
+  .steps li { counter-increment: step; padding-right: 28px; position: relative; }
+  .steps li::before {
+    content: counter(step);
+    display: grid; place-items: center;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--ink);
+    font-family: var(--sans); font-weight: 700; font-size: 1.05rem;
+    margin-bottom: 22px; position: relative;
+  }
+  .steps li:last-child::before { background: var(--saffron); border-color: var(--saffron); }
+  .steps p { margin: 0; color: var(--ink-soft); font-size: 1.02rem; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 2fr; gap: 56px; }
+  .about .body p { margin: 0 0 20px; max-width: 36em; }
+  .record { margin: 32px 0 0; padding: 0; list-style: none; max-width: 36em; }
+  .record li { display: grid; grid-template-columns: 9rem 1fr; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); }
+  .record li:last-child { border-bottom: 1px solid var(--rule); }
+  .record strong { font-family: var(--sans); font-weight: 600; }
+  .record span { color: var(--ink-soft); }
+
+  /* Name */
+  .name-note { background: var(--ink); color: var(--stone); }
+  .name-note .wrap { display: grid; grid-template-columns: 1fr 2fr; gap: 56px; align-items: start; }
+  .name-note h2 { color: var(--paper); }
+  .name-note p { margin: 0 0 18px; max-width: 36em; font-size: 1.2rem; }
+  .name-note em { color: var(--saffron); font-style: italic; }
+
+  /* Contact */
+  .contact { display: grid; grid-template-columns: 1fr 2fr; gap: 56px; }
+  .contact p { margin: 0 0 28px; max-width: 34em; font-size: 1.2rem; color: var(--ink-soft); }
+  .contact .email { font-family: var(--sans); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2.2rem); letter-spacing: -0.02em; color: var(--ink); display: inline-block; margin-bottom: 28px; }
+  .contact .email:hover { color: var(--river); }
+  .contact .meta { font-size: 1rem; color: var(--ink-soft); margin: 0; }
+
+  footer { padding: 36px 0 48px; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 0.92rem; color: var(--ink-soft); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .hero .wrap, .section-head, .about, .name-note .wrap, .contact { grid-template-columns: 1fr; gap: 32px; }
+    .cycle { justify-self: start; max-width: 300px; }
+    .practices { grid-template-columns: 1fr; gap: 40px; }
+    .steps { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+    .steps::before { display: none; }
+    section { padding: 72px 0; }
+  }
+  @media (max-width: 600px) {
+    .nav { display: none; }
+    .steps { grid-template-columns: 1fr; }
+    .record li { grid-template-columns: 1fr; gap: 2px; }
+    .hero .secondary { display: block; margin: 18px 0 0; }
+    body { font-size: 1.06rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Samsara Ventures home">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="11" fill="none" stroke="#1E2A38" stroke-width="4" stroke-dasharray="52 17.1" transform="rotate(-90 15 15)"/><circle cx="15" cy="15" r="3.4" fill="#D9952B"/></svg>
+      Samsara Ventures
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#work">What we do</a>
+      <a href="#approach">Approach</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding-top:56px">
+    <div class="wrap">
+      <div>
+        <h1>Businesses change shape. We help them do it well.</h1>
+        <p class="lede">Samsara Ventures is a New York advisory firm for the moments when a company is bought, sold, separated or rebuilt. You get senior, hands-on support from first diagnostic to final handover.</p>
+        <a class="btn" href="#contact">Start a conversation</a>
+        <a class="secondary" href="#work">See what we do</a>
+      </div>
+      <svg class="cycle" viewBox="0 0 440 440" role="img" aria-label="A ring of three arcs that separate and rejoin">
+        <g class="spin">
+          <g class="g1"><path class="arc a1" d="M 135.7 149.3 A 110 110 0 0 1 304.3 149.3"/></g>
+          <g class="g2"><path class="arc a2" d="M 323.4 182.4 A 110 110 0 0 1 239.1 328.3"/></g>
+          <g class="g3"><path class="arc a3" d="M 200.9 328.3 A 110 110 0 0 1 116.6 182.4"/></g>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section id="work" class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we do</h2>
+        <p>Three kinds of work, all built around the same question: what does this business need to look like on the other side of the deal, and how do we get it there without losing value along the way?</p>
+      </div>
+      <div class="practices">
+        <div class="practice">
+          <h3>Divestitures and carve-outs</h3>
+          <p>Separating a business unit cleanly, so the seller keeps running smoothly and the buyer gets something that works on day one.</p>
+          <ul>
+            <li>Separation planning and governance</li>
+            <li>Transition service agreements</li>
+            <li>Stranded cost reduction</li>
+            <li>Day one readiness</li>
+          </ul>
+        </div>
+        <div class="practice">
+          <h3>Mergers and integration</h3>
+          <p>Bringing two organizations together with a clear plan for people, systems and the synergies that justified the deal.</p>
+          <ul>
+            <li>Pre-close diligence support</li>
+            <li>Integration management office</li>
+            <li>Synergy tracking</li>
+            <li>Operating model design</li>
+          </ul>
+        </div>
+        <div class="practice">
+          <h3>Cost and operating transformation</h3>
+          <p>Finding where cost and complexity have built up, and reshaping the business to grow profitably under market pressure.</p>
+          <ul>
+            <li>Cost structure diagnostics</li>
+            <li>Footprint and back-office review</li>
+            <li>Technology rationalization</li>
+            <li>Revenue quality analysis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="approach">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>How an engagement runs</h2>
+        <p>Every engagement is shaped to the situation, but most follow the same arc. You can bring us in at any stage.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Diagnose</h3><p>We get under the numbers fast: where value sits, where risk sits, and what has to be true for the deal or program to work.</p></li>
+        <li><h3>Design</h3><p>We turn the diagnosis into a plan with clear owners, milestones and a target operating model your leadership can stand behind.</p></li>
+        <li><h3>Execute</h3><p>We run the program alongside your team, manage the moving parts across functions and keep decisions moving.</p></li>
+        <li><h3>Hand over</h3><p>We leave your people able to run what we built, with the tools and reporting to keep it on track.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="about" class="band">
+    <div class="wrap about">
+      <h2>Big-firm experience, boutique attention</h2>
+      <div class="body">
+        <p>Samsara Ventures was founded by Arjun Dhingra after more than a decade of management consulting at three of the largest advisory firms in the world, with a focus on M&amp;A across industries.</p>
+        <p>Clients work directly with the person who scopes the engagement. No hand-offs to a junior bench, and no slideware for its own sake.</p>
+        <ul class="record">
+          <li><strong>PwC</strong><span>Senior Manager, corporate divestitures</span></li>
+          <li><strong>EY</strong><span>Manager, mergers and acquisitions</span></li>
+          <li><strong>Deloitte</strong><span>IT transformation</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="name-note">
+    <div class="wrap">
+      <h2>Why Samsara</h2>
+      <div>
+        <p>In Sanskrit, <em>samsara</em> describes the continuous cycle of change and renewal.</p>
+        <p>Companies go through their own version of it. Units are formed, combined, separated and reborn as something new. We think those transitions are where the most value is created or lost, and that is where we focus.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact">
+      <h2>Let's talk about what's next</h2>
+      <div>
+        <p>Whether a deal is on the horizon or already in motion, a short conversation is usually enough to see whether we can help.</p>
+        <a class="email" href="mailto:hello@samsaraventures.com">hello@samsaraventures.com</a>
+        <p class="meta">Based in New York City. Working with clients across North America.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="yr">2026</span> Samsara Ventures</span>
+    <span>New York, NY</span>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
