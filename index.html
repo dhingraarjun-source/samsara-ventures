@@ -143,8 +143,9 @@
   .btn-light { background: var(--white); color: var(--red); }
   .btn-light:hover { background: var(--ink); color: var(--white); }
   .hero .secondary { margin-left: 24px; font-family: var(--sans); font-weight: 500; color: var(--white); }
-  .wheel { position: absolute; z-index: 1; right: -120px; top: 50%; width: 640px; aspect-ratio: 558/560; transform: translateY(-46%); opacity: .17; pointer-events: none; }
-  .wheel img, .wheel-turn { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wheel { position: absolute; z-index: 1; right: -120px; top: 50%; width: 640px; aspect-ratio: 1; transform: translateY(-46%); opacity: .17; pointer-events: none; }
+  .wheel svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .wheel-turn, .wheel-outer { transform-box: view-box; transform-origin: 280px 280px; }
   .wheel-turn { transform: rotate(var(--sr, 0deg)); }
   @media (prefers-reduced-motion: no-preference) {
     .wheel { animation: settle 1.6s cubic-bezier(.2,.7,.2,1) both; }
@@ -348,14 +349,73 @@
   @media (max-width: 600px) { .skyline-photo { height: 260px; } }
 
   .contact-band { background-color: var(--red); background-image: linear-gradient(90deg, rgba(36,10,8,.78) 0%, rgba(80,14,8,.55) 42%, rgba(36,28,27,.18) 100%), url("img/bridge.jpg"); background-size: cover; background-position: 0% 78%; }
+
+  /* Sticky header */
+  .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 22px 0; transition: background .25s, padding .25s, box-shadow .25s; }
+  .site-header.scrolled { background: var(--red); padding: 12px 0; box-shadow: 0 6px 24px -12px rgba(60,0,0,.6); }
+  .site-header .brand img { transition: width .25s, height .25s; }
+  .site-header.scrolled .brand img { width: 34px; height: 34px; }
+  .hero-body { padding-top: 150px; }
+  section[id], div[id] { scroll-margin-top: 76px; }
+  .nav-book { border: 1.5px solid rgba(255,255,255,.8); border-radius: 999px; padding: 6px 16px; margin-top: -7px; opacity: 1 !important; }
+  .nav-book:hover { background: var(--white); color: var(--red) !important; text-decoration: none !important; }
+  .nav-mobile-cta { display: none; color: var(--white); font-family: var(--sans); font-weight: 600; text-decoration: none; border: 1.5px solid rgba(255,255,255,.8); border-radius: 999px; padding: 7px 16px; }
+  @media (max-width: 600px) { .nav-mobile-cta { display: inline-block; } .hero-body { padding-top: 120px; } }
+  .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--white); margin: 0 0 24px; }
+  .btn-outline:hover { background: var(--white); color: var(--red); }
+
+  /* Lifecycle */
+  .lifecycle { background: var(--ink); color: #E9DEDB; }
+  .lifecycle h2 { color: var(--white); }
+  .lifecycle .section-head p { color: rgba(255,255,255,.75); }
+  .lc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  .lc-wheel { position: relative; width: 100%; max-width: 480px; aspect-ratio: 1; justify-self: center; }
+  .lc-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .lc-progress { transition: stroke-dashoffset .7s cubic-bezier(.3,.7,.2,1); }
+  .lc-center { position: absolute; inset: 30%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 50%; background: rgba(255,255,255,.04); }
+  .lc-count { font-family: var(--sans); font-size: .9rem; color: rgba(255,255,255,.6); margin-bottom: 4px; }
+  .lc-center-name { font-family: var(--sans); font-weight: 500; font-size: clamp(1.15rem, 2.2vw, 1.6rem); color: var(--white); line-height: 1.15; padding: 0 8px; }
+  .lc-node { position: absolute; transform: translate(-50%, -50%); background: none; border: 0; padding: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,.7); font-family: var(--sans); font-size: .95rem; font-weight: 500; }
+  .lc-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--ink); border: 3px solid rgba(255,255,255,.45); transition: transform .25s, background .25s, border-color .25s; }
+  .lc-node .lc-label { position: absolute; white-space: nowrap; }
+  .lc-node[data-side="top"] .lc-label { bottom: 30px; }
+  .lc-node[data-side="bottom"] .lc-label { top: 30px; }
+  .lc-node[data-side="right"] .lc-label { left: 32px; top: 50%; transform: translateY(-50%); }
+  .lc-node[data-side="left"] .lc-label { right: 32px; top: 50%; transform: translateY(-50%); }
+  .lc-node:hover { color: var(--white); }
+  .lc-node:hover .lc-dot { border-color: var(--white); }
+  .lc-node.done .lc-dot { border-color: #FF6B5E; background: #FF6B5E; transform: scale(.75); }
+  .lc-node[aria-selected="true"] { color: var(--white); }
+  .lc-node[aria-selected="true"] .lc-dot { background: var(--red); border-color: var(--white); transform: scale(1.35); }
+  .lc-node:focus-visible { outline: none; }
+  .lc-node:focus-visible .lc-dot { box-shadow: 0 0 0 4px rgba(255,255,255,.5); }
+  .lc-panel { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 18px; padding: 40px; min-height: 420px; display: flex; flex-direction: column; }
+  .lc-when { font-family: var(--sans); color: #FF6B5E; font-weight: 500; margin: 0 0 6px; }
+  .lc-title { color: var(--white); font-size: 1.9rem; font-weight: 500; margin: 0 0 14px; }
+  .lc-stake { margin: 0 0 22px; color: rgba(255,255,255,.82); }
+  .lc-help { list-style: none; margin: 0 0 28px; padding: 0; }
+  .lc-help li { padding: 11px 0 11px 26px; border-top: 1px solid rgba(255,255,255,.12); position: relative; font-size: 1.02rem; }
+  .lc-help li::before { content: ""; position: absolute; left: 0; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: #FF6B5E; }
+  .lc-nav { margin-top: auto; display: flex; gap: 12px; }
+  .lc-btn { font-family: var(--sans); font-weight: 600; font-size: .98rem; border-radius: 999px; padding: 11px 22px; cursor: pointer; border: 1.5px solid rgba(255,255,255,.5); background: transparent; color: var(--white); }
+  .lc-btn[data-step="1"] { background: var(--red); border-color: var(--red); }
+  .lc-btn:hover { border-color: var(--white); }
+  .lc-btn:focus-visible { outline: 3px solid var(--white); outline-offset: 2px; }
+  .lc-panel.swap > * { animation: lcIn .4s ease both; }
+  @keyframes lcIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .lc-panel.swap > * { animation: none; } .lc-progress { transition: none; } }
+  @media (max-width: 900px) {
+    .lc { grid-template-columns: 1fr; gap: 40px; }
+    .lc-wheel { max-width: 340px; }
+    .lc-node .lc-label { font-size: .85rem; }
+    .lc-panel { padding: 28px 22px; min-height: 0; }
+  }
+  @media (max-width: 420px) { .lc-wheel { max-width: 270px; } .lc-node[data-side="left"] .lc-label, .lc-node[data-side="right"] .lc-label { white-space: normal; width: 70px; } }
 </style>
 </head>
 <body>
 
-<main id="top">
-  <div class="hero on-red">
-    <div class="wheel" aria-hidden="true"><div class="wheel-turn"><img class="wheel-outer" src="img/wheel-outer.png" alt=""></div><img class="wheel-inner" src="img/wheel-inner.png" alt=""></div>
-    <header class="site-header">
+<header class="site-header" id="site-header">
       <div class="wrap">
         <a class="brand" href="#top" aria-label="Samsara Ventures home">
           <img src="img/mark-white.png" alt="">
@@ -364,12 +424,19 @@
         <nav class="nav" aria-label="Main">
           <a href="#work">What we do</a>
           <a href="#clients">Who we serve</a>
+          <a href="#lifecycle">Deal lifecycle</a>
           <a href="#experience">Experience</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
+          <a class="nav-book" data-booking href="#" target="_blank" rel="noopener" hidden>Book a call</a>
         </nav>
+        <a class="nav-mobile-cta" href="#contact">Contact</a>
       </div>
     </header>
+
+<main id="top">
+  <div class="hero on-red">
+    <div class="wheel" aria-hidden="true"><svg viewBox="0 0 560 560"><g class="wheel-turn"><g class="wheel-outer" fill="none" stroke="#fff"><circle cx="280" cy="280" r="266.5" stroke-width="19"/><circle cx="280" cy="280" r="237" stroke-width="18"/><g stroke-width="19.5"><line x1="404.00" y1="280.00" x2="517.00" y2="280.00"/><line x1="367.68" y1="367.68" x2="447.58" y2="447.58"/><line x1="280.00" y1="404.00" x2="280.00" y2="517.00"/><line x1="192.32" y1="367.68" x2="112.42" y2="447.58"/><line x1="156.00" y1="280.00" x2="43.00" y2="280.00"/><line x1="192.32" y1="192.32" x2="112.42" y2="112.42"/><line x1="280.00" y1="156.00" x2="280.00" y2="43.00"/><line x1="367.68" y1="192.32" x2="447.58" y2="112.42"/></g></g></g><circle cx="280" cy="280" r="124" fill="none" stroke="#fff" stroke-width="24"/><path d="M180 200 C 184 250, 222 266, 284 275 C 348 284, 382 296, 385 343" fill="none" stroke="#fff" stroke-width="21"/></svg></div>
     <div class="hero-body">
       <div class="wrap">
         <h1>Businesses change shape. We help them do it well.</h1>
@@ -478,6 +545,38 @@
             <li>Post-merger integration</li>
             <li>Operating model and cost transformation</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lifecycle" class="lifecycle">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>With you across the deal lifecycle</h2>
+        <p>Most advisors cover one stage of a deal. We can support every stage, from the first look at a target to preparing for the next owner. Select a stage to see how we help.</p>
+      </div>
+      <div class="lc">
+        <div class="lc-wheel">
+          <svg class="lc-ring" viewBox="0 0 440 440" aria-hidden="true">
+            <circle cx="220" cy="220" r="170" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
+            <circle class="lc-progress" cx="220" cy="220" r="170" fill="none" stroke="#FF6B5E" stroke-width="5" stroke-linecap="round" transform="rotate(-90 220 220)"/>
+          </svg>
+          <div class="lc-center" aria-hidden="true">
+            <span class="lc-count">1 of 6</span>
+            <span class="lc-center-name">Diligence</span>
+          </div>
+          <div class="lc-nodes" role="tablist" aria-label="Deal lifecycle stages"></div>
+        </div>
+        <div class="lc-panel" role="tabpanel" aria-live="polite">
+          <p class="lc-when"></p>
+          <h3 class="lc-title"></h3>
+          <p class="lc-stake"></p>
+          <ul class="lc-help"></ul>
+          <div class="lc-nav">
+            <button type="button" class="lc-btn" data-step="-1" aria-label="Previous stage">Previous</button>
+            <button type="button" class="lc-btn" data-step="1" aria-label="Next stage">Next stage</button>
+          </div>
         </div>
       </div>
     </div>
@@ -603,6 +702,7 @@
           <li>Every inquiry is handled in confidence</li>
           <li>No obligation and no sales pitch</li>
         </ul>
+        <a class="btn btn-outline" data-booking href="#" target="_blank" rel="noopener" hidden>Book a 30-minute intro call</a>
         <p class="direct">Prefer email? <a href="mailto:info@thesamsaraventures.com">info@thesamsaraventures.com</a><br>
         Based in New York City, working with clients across North America.</p>
       </div>
@@ -693,6 +793,93 @@ document.getElementById('yr').textContent = new Date().getFullYear();
         status.textContent = 'Your message didn’t send. Try again, or email ' + TO + ' directly.';
       });
   });
+})();
+</script>
+<script>
+(function () {
+  // Paste your Calendly or Cal.com link between the quotes to show the "Book a call" buttons.
+  var BOOKING_URL = "https://calendly.com/samsaraventures/30min";
+  if (BOOKING_URL) document.querySelectorAll('[data-booking]').forEach(function (a) { a.href = BOOKING_URL; a.hidden = false; });
+
+  // Sticky header
+  var h = document.getElementById('site-header');
+  function onScroll() { h.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Deal lifecycle
+  var stages = [
+    { name: 'Diligence', when: 'Before signing', title: 'Know what you are buying',
+      stake: 'The investment case is only as good as the facts underneath it. Surprises found after signing are the most expensive kind.',
+      help: ['Operational and IT due diligence', 'Standalone cost and separation complexity', 'Risks and value creation opportunities that feed the deal model'] },
+    { name: 'Signing to close', when: 'Between signing and close', title: 'Plan while the deal clears',
+      stake: 'The weeks before close are the best time to prepare. Teams that wait for close lose momentum they rarely get back.',
+      help: ['Integration or separation planning', 'Transition service agreement design', 'Governance and program office setup'] },
+    { name: 'Day 1', when: 'Close', title: 'Keep the business running',
+      stake: 'Customers, employees and suppliers judge the deal on its first day. Payroll, systems and service need to work without interruption.',
+      help: ['Day 1 readiness checks', 'Command center and issue resolution', 'Communication plans for people and customers'] },
+    { name: 'First 100 days', when: 'Right after close', title: 'Build early momentum',
+      stake: 'The first 100 days set the tone for everything after. Early wins build confidence; drift is hard to reverse.',
+      help: ['100-day plan execution', 'Quick wins and early synergy capture', 'Organization and operating model decisions'] },
+    { name: 'Value creation', when: 'The hold period', title: 'Turn the thesis into results',
+      stake: 'This is where the returns are made or missed. Plans need owners, tracking and steady leadership to deliver.',
+      help: ['Cost and operational improvement', 'Growth and go-to-market initiatives', 'Hands-on program leadership inside the business'] },
+    { name: 'Exit', when: 'Preparing for the next owner', title: 'Get ready for the next chapter',
+      stake: 'Buyers pay for businesses that are easy to understand and easy to own. Then the cycle begins again.',
+      help: ['Exit readiness and sell-side diligence preparation', 'Carve-out of non-core businesses', 'Clean standalone operations and reporting'] }
+  ];
+  var nodesEl = document.querySelector('.lc-nodes'); if (!nodesEl) return;
+  var panel = document.querySelector('.lc-panel');
+  var prog = document.querySelector('.lc-progress');
+  var C = 2 * Math.PI * 170; prog.style.strokeDasharray = C;
+  var nodes = [], current = 0, timer = null;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  stages.forEach(function (st, i) {
+    var ang = (-90 + i * 60) * Math.PI / 180;
+    var x = 50 + (170 / 440) * 100 * Math.cos(ang), y = 50 + (170 / 440) * 100 * Math.sin(ang);
+    var side = i === 0 ? 'top' : i === 3 ? 'bottom' : (i < 3 ? 'right' : 'left');
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'lc-node'; b.setAttribute('role', 'tab'); b.dataset.side = side;
+    b.style.left = x + '%'; b.style.top = y + '%';
+    b.innerHTML = '<span class="lc-dot"></span><span class="lc-label">' + st.name + '</span>';
+    b.addEventListener('click', function () { stop(); show(i); });
+    b.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); stop(); show((i + 1) % 6, true); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); stop(); show((i + 5) % 6, true); }
+    });
+    nodesEl.appendChild(b); nodes.push(b);
+  });
+  function show(i, focus) {
+    current = i; var st = stages[i];
+    nodes.forEach(function (n, j) {
+      n.setAttribute('aria-selected', j === i ? 'true' : 'false'); n.tabIndex = j === i ? 0 : -1;
+      n.classList.toggle('done', j < i);
+    });
+    if (focus) nodes[i].focus();
+    prog.style.strokeDashoffset = C * (1 - (i === 0 ? 0.02 : i / 6));
+    document.querySelector('.lc-count').textContent = (i + 1) + ' of 6';
+    document.querySelector('.lc-center-name').textContent = st.name;
+    panel.querySelector('.lc-when').textContent = st.when;
+    panel.querySelector('.lc-title').textContent = st.title;
+    panel.querySelector('.lc-stake').textContent = st.stake;
+    panel.querySelector('.lc-help').innerHTML = st.help.map(function (t) { return '<li>' + t + '</li>'; }).join('');
+    panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap');
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  panel.querySelectorAll('.lc-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { stop(); show((current + Number(btn.dataset.step) + 6) % 6); });
+  });
+  show(0);
+  // Gently auto-advance while the section is on screen, until the visitor interacts
+  if (!reduce && 'IntersectionObserver' in window) {
+    var started = false;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !started) { started = true; timer = setInterval(function () { show((current + 1) % 6); }, 5000); }
+        if (!e.isIntersecting) stop();
+      });
+    }, { threshold: 0.5 }).observe(document.querySelector('.lc'));
+    document.querySelector('.lc').addEventListener('pointerenter', stop);
+  }
 })();
 </script>
 </body>
