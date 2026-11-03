@@ -5,6 +5,8 @@ category: "M&A and Transactions"
 author: "Arjun Dhingra"
 draft: false
 publishDate: 2026-11-02
+readingOrder: 2
+useWhen: "A deal is heading toward close and you are planning governance, synergies and people decisions for the first 100 days."
 ---
 
 Integrations don't usually fail all at once. More often they fall behind gradually. Decisions take longer than planned, a few synergy initiatives slip a quarter, some good people leave, and customers start to notice small changes in service. By the time the shortfall is visible in the numbers, the causes go back months.
@@ -60,6 +62,18 @@ It's worth mapping key accounts early, being careful about any change customers 
 Systems integration is often where synergy timelines slip. Moving everything onto one platform may be the right long-term goal, but it's expensive and slow, and not every integration needs it on the same timeline.
 
 A practical approach separates what has to be connected on Day 1, what should be consolidated in the first year, and what can stay separate for now. The synergy plan and the operating model should drive that sequence. Issues found during [IT due diligence](/insights/it-due-diligence-red-flags/) are a good place to start.
+
+## A simple sequence from signing to Day 100
+
+Pulling these points together, here is one way to sequence the work. The owners are examples; who takes each role depends on the deal and the size of the organization.
+
+| Stage | Example owner | Checkpoint |
+| --- | --- | --- |
+| Signing to close | Integration lead, with the steering committee | Objectives and decision rights agreed, first-month decisions listed, Day 1 readiness plan in place (where regulations allow) |
+| Day 1 | Day 1 command center lead | Payroll, systems and customer service working, and employees told what is changing and what isn't |
+| First 30 days | Steering committee | First-month decisions made and organization announcements on schedule |
+| Days 31 to 60 | Workstream leads, with finance | Each synergy has an owner, a baseline and a target |
+| Days 61 to 100 | Integration management office | Customer metrics stable, critical people retained, technology roadmap agreed, and the Day 100 checklist below reviewed |
 
 ## What good looks like at day 100
 

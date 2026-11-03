@@ -23,7 +23,11 @@ const crumbs = [
   { name: article.data.title, href: path },
 ];
 const related = services.filter((s) => s.relatedInsights.includes(article.id));
-const others = (await getVisibleInsights()).filter((a) => a.id !== article.id).slice(0, 2);
+// Follow the suggested reading order: link to the previous and next articles.
+const all = await getVisibleInsights();
+const idx = all.findIndex((a) => a.id === article.id);
+const prev = idx > 0 ? all[idx - 1] : undefined;
+const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : undefined;
 ---
 <BaseLayout
   title={article.data.title}
@@ -64,7 +68,7 @@ const others = (await getVisibleInsights()).filter((a) => a.id !== article.id).s
     </header>
 
     <div class="container-site grid gap-12 py-16 md:py-20 lg:grid-cols-12">
-      <div class="prose-site lg:col-span-8">
+      <div class="prose-site min-w-0 lg:col-span-8">
         <Content />
       </div>
       <aside class="lg:col-span-3 lg:col-start-10" aria-label="Related">
@@ -86,20 +90,26 @@ const others = (await getVisibleInsights()).filter((a) => a.id !== article.id).s
       </aside>
     </div>
 
-    {others.length > 0 && (
-      <section class="border-t border-rule" aria-labelledby="more-insights">
+    {(prev || next) && (
+      <nav class="border-t border-rule" aria-labelledby="more-insights">
         <div class="container-site py-14">
-          <h2 id="more-insights" class="text-h2">More insights</h2>
+          <h2 id="more-insights" class="text-h2">Keep reading</h2>
           <ul class="mt-8 grid gap-x-12 md:grid-cols-2">
-            {others.map((a) => (
+            {prev && (
               <li class="border-t border-rule py-6">
-                <p class="font-sans text-[0.9rem] text-red">{a.data.category}</p>
-                <a href={`/insights/${a.id}/`} class="mt-2 block font-sans text-[1.3rem] font-medium leading-snug text-ink no-underline hover:text-red">{a.data.title}</a>
+                <p class="font-sans text-[0.9rem] text-ink-muted">Previous in the series</p>
+                <a href={`/insights/${prev.id}/`} class="mt-2 block font-sans text-[1.3rem] font-medium leading-snug text-ink no-underline hover:text-red">{prev.data.title}</a>
               </li>
-            ))}
+            )}
+            {next && (
+              <li class:list={['border-t border-rule py-6', !prev && 'md:col-start-2']}>
+                <p class="font-sans text-[0.9rem] text-ink-muted">Next in the series</p>
+                <a href={`/insights/${next.id}/`} class="mt-2 block font-sans text-[1.3rem] font-medium leading-snug text-ink no-underline hover:text-red">{next.data.title}</a>
+              </li>
+            )}
           </ul>
         </div>
-      </section>
+      </nav>
     )}
   </article>
 

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import { site } from '@/config/site';
+import { site, providers } from '@/config/site';
 import { breadcrumbSchema } from '@/utils/schema';
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy/' }];
 ---
@@ -15,8 +15,11 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy/
     <div class="container-site">
       <div class="prose-site">
         <h2>Information you send us</h2>
-        <p>When you use the contact form, we receive the details you enter: your name, company, email address, area of interest and message. We use this information only to respond to your inquiry and to continue a conversation you have started.</p>
-        <p>Contact form submissions are processed by Formspree, a form handling service, which forwards them to our email. If you schedule a conversation, your booking is handled by Calendly. Each of these services processes data under its own privacy policy.</p>
+        <p>When you use the contact form, we receive the details you enter: your name and email address, your message, and your company and area of interest if you provide them. We use this information only to respond to your inquiry and to continue a conversation you have started.</p>
+        <p>
+          {providers.form && <>Contact form submissions are processed by {providers.form}, a form handling service, which forwards them to our email. </>}
+          If you schedule a conversation, your booking is handled by {providers.booking}. Each of these services processes data under its own privacy policy.
+        </p>
         <h2>What we do not do</h2>
         <ul>
           <li>We do not sell or rent your information.</li>

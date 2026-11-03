@@ -47,6 +47,15 @@ export const site = {
   showDrafts: env.PUBLIC_SHOW_DRAFTS === 'true',
 } as const;
 
+/**
+ * Third-party providers named in the privacy notice, derived from the configured URLs
+ * so the notice stays accurate if the form or booking service changes.
+ */
+export const providers = {
+  form: site.formEndpoint.includes('formspree.io') ? 'Formspree' : site.formEndpoint ? 'a third-party form service' : '',
+  booking: site.bookingUrl.includes('calendly.com') ? 'Calendly' : 'a third-party scheduling service',
+};
+
 export type NavItem = { label: string; href: string };
 
 export const mainNav: NavItem[] = [

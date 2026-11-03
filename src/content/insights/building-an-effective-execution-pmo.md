@@ -5,6 +5,8 @@ category: "Private Equity Value Creation"
 author: "Arjun Dhingra"
 draft: false
 publishDate: 2026-11-02
+readingOrder: 3
+useWhen: "You are early in a hold period, or a value creation plan has stalled and needs a working PMO."
 ---
 
 Every private equity investment starts with a thesis about why the business will be worth more at exit than at entry. That thesis usually becomes a value creation plan, a set of initiatives meant to close the gap between the entry and exit numbers.
@@ -54,6 +56,26 @@ A simple set of stages helps:
 5. **Realized:** the benefit shows up in the financial results
 
 Reporting value by stage shows how much of the plan is real, how much is in progress and how much still needs work.
+
+## An example charter, from idea to realized value
+
+To show how the charter and the stages fit together, here is a hypothetical initiative. The company, people and figures are invented for illustration and are not drawn from any client.
+
+- **Initiative:** consolidate purchasing of indirect goods and services across three sites.
+- **Owner:** Chief Operating Officer, with the procurement lead running day-to-day work.
+- **Milestones:** new supplier agreements signed by month four; all three sites buying under them by month six.
+- **Cost to achieve:** $150,000 for sourcing support and purchasing-system changes.
+- **Target:** $600,000 in run-rate savings.
+
+| Stage | What happens | How value is reported |
+| --- | --- | --- |
+| Identified | Diligence notes that each site buys the same categories from different suppliers | Rough estimate of $500,000 to $800,000 a year |
+| Validated | Finance pulls twelve months of spend by category and agrees the baseline with the COO | Target set at $600,000 run-rate |
+| Approved | The charter is signed off with an owner, milestones and the $150,000 budget | Target, timing and cost to achieve locked in |
+| In delivery | Agreements are signed for two of the three sites | $400,000 run-rate contracted; in-year savings tracked separately |
+| Realized | Finance compares actual spend against the agreed baseline | $560,000 run-rate confirmed, slightly below target because volumes in one category fell |
+
+Two details matter here. The savings were only counted as realized after finance checked them against the baseline agreed at the validation stage, and the shortfall against target was reported rather than smoothed over. Both make it easier for the board to trust the other numbers in the report.
 
 ## Set a meeting rhythm that leads to decisions
 

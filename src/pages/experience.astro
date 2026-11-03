@@ -9,6 +9,13 @@ import { breadcrumbSchema } from '@/utils/schema';
 
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Experience', href: '/experience/' }];
 const label = { samsara: 'Samsara Ventures engagement', prior: 'Founder’s prior experience at a previous firm' } as const;
+const roleLabel = { samsara: 'Our role', prior: 'Founder’s role' } as const;
+
+// Surface unresolved publication notes in the build log so they are not forgotten.
+const unresolved = experienceGroups.flatMap((g) => g.items.filter((i) => i.confirm).map((i) => i.title));
+if (unresolved.length) {
+  console.warn(`[experience] ${unresolved.length} example(s) awaiting owner confirmation:\n - ${unresolved.join('\n - ')}`);
+}
 ---
 <BaseLayout
   title="M&A and Transformation Experience"
@@ -45,14 +52,14 @@ const label = { samsara: 'Samsara Ventures engagement', prior: 'Founder’s prio
         <div class="space-y-14 md:col-span-8">
           {group.items.map((item) => (
             <article class="border-t-2 border-ink pt-6">
-              <p class="flex flex-wrap gap-x-4 gap-y-1 font-sans text-[0.92rem]">
-                <span class:list={[item.context === 'samsara' ? 'text-red' : 'text-ink-soft']}>{label[item.context]}</span>
+              <p class="flex flex-wrap items-center gap-x-3 gap-y-2 font-sans text-[0.9rem]">
+                <span class:list={['rounded-full px-3 py-1 font-medium', item.context === 'samsara' ? 'bg-red text-white' : 'border border-ink text-ink']}>{label[item.context]}</span>
                 <span class="text-ink-muted">{item.industry}</span>
               </p>
               <h3 class="mt-3 text-[1.4rem] leading-snug">{item.title}</h3>
               <dl class="mt-5 grid gap-5 sm:grid-cols-2">
                 <div><dt class="font-sans text-[0.95rem] font-medium">The challenge</dt><dd class="mt-1.5 text-[1rem] text-ink-soft">{item.challenge}</dd></div>
-                <div><dt class="font-sans text-[0.95rem] font-medium">Our role</dt><dd class="mt-1.5 text-[1rem] text-ink-soft">{item.support}</dd></div>
+                <div><dt class="font-sans text-[0.95rem] font-medium">{roleLabel[item.context]}</dt><dd class="mt-1.5 text-[1rem] text-ink-soft">{item.support}</dd></div>
               </dl>
               <ul class="mt-5 flex flex-wrap gap-2" aria-label="Capabilities">
                 {item.capabilities.map((c) => <li class="rounded-full border border-rule bg-white px-3 py-1 font-sans text-[0.85rem] text-ink-soft">{c}</li>)}

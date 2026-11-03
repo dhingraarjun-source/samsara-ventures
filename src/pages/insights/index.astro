@@ -8,7 +8,7 @@ import { breadcrumbSchema } from '@/utils/schema';
 
 const articles = await getVisibleInsights();
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Insights', href: '/insights/' }];
-const counts = Object.fromEntries(insightCategories.map((c) => [c, articles.filter((a) => a.data.category === c).length]));
+const ordered = articles.some((a) => a.data.readingOrder);
 ---
 <BaseLayout
   title="Insights on M&A and Value Creation"
@@ -24,41 +24,40 @@ const counts = Object.fromEntries(insightCategories.map((c) => [c, articles.filt
 
   <section class="section" aria-labelledby="articles-title">
     <div class="container-site">
-      <h2 id="articles-title" class="sr-only">Articles</h2>
-
-      {articles.length > 0 && (
-        <div class="mb-12 flex flex-wrap gap-2" role="group" aria-label="Filter by category" data-filters>
-          <button type="button" class="chip" aria-pressed="true" data-cat="all">All</button>
-          {insightCategories.map((c) => (
-            <button type="button" class="chip" aria-pressed="false" data-cat={c} disabled={counts[c] === 0}>{c}</button>
-          ))}
-        </div>
-      )}
-
       {articles.length > 0 ? (
-        <ul class="grid gap-x-12 gap-y-4 md:grid-cols-2" data-articles>
-          {articles.map((a) => (
-            <li class="article-item border-t border-rule py-8" data-cat={a.data.category}>
-              <p class="font-sans text-[0.92rem] text-ink-muted">
-                <span class="text-red">{a.data.category}</span>
-                <span aria-hidden="true"> &middot; </span>
-                {readingTime(a.body)}
-              </p>
-              <h3 class="mt-3 text-[1.45rem] leading-snug">
-                <a href={`/insights/${a.id}/`} class="text-ink no-underline hover:text-red">{a.data.title}</a>
-              </h3>
-              <p class="mt-3 text-ink-soft">{a.data.description}</p>
-              <p class="mt-4 font-sans text-[0.92rem] text-ink-muted">
-                {isLive(a) && a.data.publishDate
-                  ? <time datetime={a.data.publishDate.toISOString()}>{formatDate(a.data.publishDate)}</time>
-                  : <span class="draft-badge">Draft, not published</span>}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <>
+          <div class="mb-10 max-w-2xl">
+            <h2 id="articles-title" class="text-h2">{ordered ? 'Suggested reading order' : 'Articles'}</h2>
+            {ordered && <p class="mt-3 text-ink-soft">The articles follow a deal from diligence through integration to the hold period. Start at the beginning, or jump to the stage you are in.</p>}
+          </div>
+          <ol class="divide-y divide-rule border-y border-rule">
+            {articles.map((a, i) => (
+              <li class="grid gap-4 py-10 md:grid-cols-12 md:gap-10">
+                <div class="font-sans md:col-span-2">
+                  {ordered && <span class="block text-[2.2rem] font-light leading-none text-red" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>}
+                  <span class="mt-2 block text-[0.9rem] text-ink-muted">{a.data.category}</span>
+                </div>
+                <div class="md:col-span-7">
+                  <h3 class="text-[1.45rem] leading-snug">
+                    <a href={`/insights/${a.id}/`} class="text-ink no-underline hover:text-red hover:underline">{a.data.title}</a>
+                  </h3>
+                  {a.data.useWhen && <p class="mt-3"><span class="font-sans font-medium">Read this when </span>{a.data.useWhen.charAt(0).toLowerCase() + a.data.useWhen.slice(1)}</p>}
+                  <p class="mt-2 text-ink-soft">{a.data.description}</p>
+                </div>
+                <p class="font-sans text-[0.92rem] text-ink-muted md:col-span-3 md:text-right">
+                  {isLive(a) && a.data.publishDate
+                    ? <time datetime={a.data.publishDate.toISOString()}>{formatDate(a.data.publishDate)}</time>
+                    : <span class="draft-badge">Draft, not published</span>}
+                  <span class="block">{readingTime(a.body)}</span>
+                </p>
+              </li>
+            ))}
+          </ol>
+        </>
       ) : (
         <div class="max-w-2xl">
-          <p class="text-lede text-ink-soft">Our first articles are in preparation. They will cover IT due diligence, post-merger integration and value creation execution.</p>
+          <h2 id="articles-title" class="text-h2">Articles</h2>
+          <p class="mt-4 text-lede text-ink-soft">Our first articles are in preparation. They will cover IT due diligence, post-merger integration and value creation execution.</p>
           <h3 class="mt-10 text-h3">Topics we write about</h3>
           <ul class="rule-list mt-4 font-sans">
             {insightCategories.map((c) => <li>{c}</li>)}
@@ -66,7 +65,6 @@ const counts = Object.fromEntries(insightCategories.map((c) => [c, articles.filt
           <p class="mt-8">In the meantime, explore our <a href="/services/">services</a> and <a href="/experience/">experience</a>, or <a href="/contact/">start a conversation</a>.</p>
         </div>
       )}
-
     </div>
   </section>
 
@@ -74,21 +72,5 @@ const counts = Object.fromEntries(insightCategories.map((c) => [c, articles.filt
 </BaseLayout>
 
 <style>
-  .chip { font-family: var(--font-sans); font-size: .95rem; padding: .5rem 1rem; border-radius: 999px; border: 1.5px solid var(--color-rule); color: var(--color-ink); background: #fff; cursor: pointer; transition: border-color .2s, background-color .2s, color .2s; }
-  .chip:hover:not(:disabled) { border-color: var(--color-ink); }
-  .chip[aria-pressed='true'] { background: var(--color-ink); border-color: var(--color-ink); color: #fff; }
-  .chip:disabled { opacity: .45; cursor: not-allowed; }
   .draft-badge { display: inline-block; background: #fff4d6; color: #6b4a00; border: 1px solid #f0d58a; padding: .15rem .6rem; border-radius: 999px; font-size: .85rem; }
 </style>
-
-<script>
-  const group = document.querySelector('[data-filters]');
-  const items = document.querySelectorAll<HTMLElement>('[data-articles] [data-cat]');
-  group?.addEventListener('click', (e) => {
-    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-cat]');
-    if (!btn || btn.disabled) return;
-    group.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-    const cat = btn.dataset.cat;
-    items.forEach((it) => { it.hidden = cat !== 'all' && it.dataset.cat !== cat; });
-  });
-</script>

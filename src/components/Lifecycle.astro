@@ -31,9 +31,10 @@ const nodes = stages.map((s, i) => {
     <div class="lc-center"><span class="lc-count">1 of 6</span><span class="lc-center-name">Diligence</span></div>
   </div>
 
-  <div class="lc-tabs" role="tablist" aria-label="Deal lifecycle stages">
+  <!-- Without JavaScript these buttons are hidden from assistive tech and every stage is listed below. -->
+  <div class="lc-tabs" aria-hidden="true" data-tablist aria-label="Deal lifecycle stages">
     {nodes.map((n, i) => (
-      <button type="button" role="tab" id={`lc-tab-${i}`} aria-controls={`lc-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+      <button type="button" id={`lc-tab-${i}`} tabindex="-1"
         class="lc-node" data-side={n.side} style={`left:${n.x}%;top:${n.y}%`}>
         <span class="lc-dot" aria-hidden="true"></span><span class="lc-label">{n.name}</span>
       </button>
@@ -42,14 +43,15 @@ const nodes = stages.map((s, i) => {
 
   <div class="lc-panels">
     {stages.map((s, i) => (
-      <div role="tabpanel" id={`lc-panel-${i}`} aria-labelledby={`lc-tab-${i}`} class="lc-panel" hidden={i !== 0}>
+      <div id={`lc-panel-${i}`} class="lc-panel" data-panel>
+        <h3 class="lc-stage">{s.name}</h3>
         <p class="lc-when">{s.when}</p>
-        <h3 class="lc-title">{s.title}</h3>
+        <p class="lc-title">{s.title}</p>
         <p class="lc-stake">{s.stake}</p>
         <ul class="lc-help">{s.help.map((h) => <li>{h}</li>)}</ul>
       </div>
     ))}
-    <div class="lc-nav">
+    <div class="lc-nav" hidden>
       <button type="button" class="lc-btn" data-step="-1">Previous</button>
       <button type="button" class="lc-btn is-next" data-step="1">Next stage</button>
     </div>
@@ -81,7 +83,10 @@ const nodes = stages.map((s, i) => {
   .lc-node:focus-visible { outline: none; }
   .lc-node:focus-visible .lc-dot { box-shadow: 0 0 0 4px rgb(255 255 255 / .55); }
   .lc-when { font-family: var(--font-sans); font-weight: 500; color: var(--color-red-soft); margin: 0; }
-  .lc-title { color: #fff; font-size: 1.8rem; margin-top: .3rem; }
+  .lc-title { color: #fff; font-family: var(--font-sans); font-weight: 500; font-size: 1.8rem; line-height: 1.2; letter-spacing: -0.02em; margin-top: .3rem; }
+  .lc-stage { color: #fff; font-size: 1.05rem; margin-bottom: .2rem; }
+  .is-enhanced .lc-stage { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .lc:not(.is-enhanced) .lc-panel + .lc-panel { margin-top: 1.6rem; padding-top: 1.6rem; border-top: 1px solid rgb(255 255 255 / .15); }
   .lc-stake { margin-top: .9rem; color: rgb(255 255 255 / .8); }
   .lc-help { margin-top: 1.4rem; }
   .lc-help li { padding: .7rem 0 .7rem 1.6rem; border-top: 1px solid rgb(255 255 255 / .12); position: relative; }
@@ -103,8 +108,21 @@ const nodes = stages.map((s, i) => {
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-lifecycle]').forEach((root) => {
-    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role=tab]'));
-    const panels = Array.from(root.querySelectorAll<HTMLElement>('[role=tabpanel]'));
+    // Progressive enhancement: turn the static list of stages into an accessible tab interface.
+    const tablist = root.querySelector<HTMLElement>('[data-tablist]')!;
+    const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('button'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-panel]'));
+    tablist.removeAttribute('aria-hidden');
+    tablist.setAttribute('role', 'tablist');
+    tabs.forEach((t, i) => {
+      t.setAttribute('role', 'tab');
+      t.setAttribute('aria-controls', panels[i].id);
+      panels[i].setAttribute('role', 'tabpanel');
+      panels[i].setAttribute('aria-labelledby', t.id);
+      panels[i].tabIndex = 0;
+    });
+    root.querySelector<HTMLElement>('.lc-nav')!.hidden = false;
+    root.classList.add('is-enhanced');
     const prog = root.querySelector<SVGCircleElement>('.lc-progress')!;
     const count = root.querySelector('.lc-count')!;
     const centerName = root.querySelector('.lc-center-name')!;

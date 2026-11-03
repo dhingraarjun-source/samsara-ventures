@@ -47,6 +47,26 @@ const insights = (await getPublishedInsights()).filter((a) => service.relatedIns
     </div>
   </section>
 
+  <!-- Entry points: the decision and what we produce for it -->
+  <section class="section-tight border-t border-rule" aria-labelledby="tracks">
+    <div class="container-site">
+      <h2 id="tracks" class="text-h2">Where we help</h2>
+      <div class:list={['mt-10 grid gap-10', service.tracks.length === 3 ? 'lg:grid-cols-3' : 'md:grid-cols-2']}>
+        {service.tracks.map((t) => (
+          <article class="border-t-2 border-ink pt-5">
+            <h3 class="text-h3">{t.title}</h3>
+            <p class="mt-4 font-sans text-[0.9rem] font-medium text-red">The decision</p>
+            <p class="mt-1 text-[1rem]">{t.decision}</p>
+            <p class="mt-4 font-sans text-[0.9rem] font-medium text-red">What you get</p>
+            <ul class="mt-1 space-y-1.5 text-[1rem] text-ink-soft">
+              {t.outputs.map((o) => <li class="relative pl-4 before:absolute before:left-0 before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-red">{o}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Capabilities -->
   <section class="section bg-stone" aria-labelledby="capabilities">
     <div class="container-site">

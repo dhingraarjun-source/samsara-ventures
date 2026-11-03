@@ -13,7 +13,12 @@ export const isLive = (a: Insight) => !a.data.draft && !!a.data.publishDate;
 export async function getVisibleInsights(): Promise<Insight[]> {
   const all = await getCollection('insights');
   const visible = all.filter((a) => isLive(a) || site.showDrafts);
-  return visible.sort((a, b) => (b.data.publishDate?.getTime() ?? 0) - (a.data.publishDate?.getTime() ?? 0));
+  // Suggested reading order first, then newest first.
+  return visible.sort(
+    (a, b) =>
+      (a.data.readingOrder ?? Infinity) - (b.data.readingOrder ?? Infinity) ||
+      (b.data.publishDate?.getTime() ?? 0) - (a.data.publishDate?.getTime() ?? 0),
+  );
 }
 
 /** Only live articles, used for cross-links on service pages. */

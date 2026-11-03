@@ -23,8 +23,7 @@ const jsonLd = [organizationSchema(), ...schema];
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={canonical} />}
 
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={site.name} />

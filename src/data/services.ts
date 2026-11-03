@@ -4,6 +4,8 @@
  */
 
 export type Capability = { title: string; text: string };
+/** A distinct way into the service: the decision the client faces and what we produce for it. */
+export type Track = { title: string; decision: string; outputs: string[] };
 export type Step = { title: string; text: string };
 
 export type Service = {
@@ -12,11 +14,17 @@ export type Service = {
   name: string;
   /** One-sentence summary used on the homepage and Services page. */
   summary: string;
+  /** Short buying trigger: when a client typically calls about this service. */
+  trigger: string;
+  /** One representative deliverable, used to compare services. */
+  sampleOutput: string;
   /** Short capability list used on the homepage. */
   highlights: string[];
   meta: { title: string; description: string };
   hero: { title: string; lede: string };
   context: { title: string; paragraphs: string[]; challenges: string[] };
+  /** Entry points into the service, each pairing a decision with outputs from `deliverables`. */
+  tracks: Track[];
   capabilities: Capability[];
   deliverables: string[];
   approach: Step[];
@@ -32,6 +40,8 @@ export const services: Service[] = [
     name: 'Transaction Advisory',
     summary:
       'Diligence, integration and separation support that protects deal value from the first look at a target through the first hundred days after close.',
+    trigger: 'You are evaluating a target, preparing to close, or separating a business from its parent.',
+    sampleOutput: 'IT and operational due diligence findings with estimated one-time and run-rate costs',
     highlights: [
       'Operational and IT due diligence',
       'M&A integration',
@@ -63,6 +73,35 @@ export const services: Service[] = [
         'Synergy targets that are agreed at signing but never translated into owned, tracked initiatives',
       ],
     },
+    tracks: [
+      {
+        title: 'Due diligence',
+        decision: 'Whether to proceed, at what price, and with which protections or first-100-day actions.',
+        outputs: [
+          'IT and operational due diligence findings, with risks, red flags and estimated one-time and run-rate costs',
+          'Standalone and separation cost estimates',
+        ],
+      },
+      {
+        title: 'Integration',
+        decision: 'How to combine the two businesses, in what order, and who decides.',
+        outputs: [
+          'Integration blueprint and governance model',
+          'Day 1 readiness plan, checklists and command center approach',
+          '100-day plan with workstream owners and milestones',
+          'Synergy baseline, initiative register and tracking dashboard',
+        ],
+      },
+      {
+        title: 'Carve-out or separation',
+        decision: 'What the business needs to operate on its own, and how long it will rely on the seller.',
+        outputs: [
+          'Separation blueprint and Day 1 readiness plan',
+          'TSA schedules and TSA exit roadmap',
+          'Standalone and separation cost estimates',
+        ],
+      },
+    ],
     capabilities: [
       {
         title: 'IT due diligence',
@@ -119,6 +158,8 @@ export const services: Service[] = [
     name: 'Value Creation & Transformation',
     summary:
       'Value creation planning and hands-on transformation leadership that turn an investment thesis or strategic plan into measurable operating results.',
+    trigger: 'A value creation plan needs to be built, or an existing plan needs someone to drive delivery.',
+    sampleOutput: 'Value creation plan with sized, sequenced initiatives and owners',
     highlights: [
       'Private equity value creation planning',
       'Operating model transformation',
@@ -151,6 +192,26 @@ export const services: Service[] = [
         'Boards and sponsors that lack reliable visibility into progress against the plan',
       ],
     },
+    tracks: [
+      {
+        title: 'Building the plan',
+        decision: 'Which initiatives to pursue, in what order, and what each should deliver.',
+        outputs: [
+          'Value creation plan with sized, sequenced initiatives',
+          'Initiative charters with owners, milestones and financial targets',
+          'Cost baseline and prioritized savings opportunities',
+        ],
+      },
+      {
+        title: 'Executing an existing plan',
+        decision: 'How to keep the plan on schedule and show the board what has actually been delivered.',
+        outputs: [
+          'Execution PMO operating rhythm and reporting pack for management and the board',
+          'KPI dashboard aligned to the investment case',
+          'Benefits tracking reconciled with finance',
+        ],
+      },
+    ],
     capabilities: [
       {
         title: 'Value creation planning',
@@ -184,6 +245,7 @@ export const services: Service[] = [
       'Cost baseline and prioritized savings opportunities',
       'Target operating model and transition roadmap',
       'KPI dashboard aligned to the investment case',
+      'Benefits tracking reconciled with finance',
     ],
     approach: [
       { title: 'Understand', text: 'Build a fact base on cost, performance and operations, and test it against the investment thesis.' },
@@ -206,6 +268,8 @@ export const services: Service[] = [
     name: 'Growth & Commercial Strategy',
     summary:
       'Go-to-market planning and commercialization support that turns new products, markets and channels into revenue.',
+    trigger: 'You are launching a product, entering a new market or resetting how the business sells.',
+    sampleOutput: 'Go-to-market strategy and launch plan, with target buyer profiles and positioning',
     highlights: [
       'Go-to-market strategy and execution',
       'Product commercialization',
@@ -237,6 +301,23 @@ export const services: Service[] = [
         'Limited visibility into which growth investments are paying off',
       ],
     },
+    tracks: [
+      {
+        title: 'Customer and market selection',
+        decision: 'Which customers and markets to prioritize, and how to position the offer to them.',
+        outputs: ['Target buyer profiles, positioning and messaging framework', 'Growth plan with revenue initiatives, owners and milestones'],
+      },
+      {
+        title: 'Launch readiness',
+        decision: 'Whether the product, sales team and channels are ready to go to market, and in what sequence.',
+        outputs: ['Go-to-market strategy and launch plan', 'Sales enablement materials and playbooks'],
+      },
+      {
+        title: 'Commercial execution',
+        decision: 'How to organize and measure the commercial team so the plan turns into pipeline and revenue.',
+        outputs: ['Commercial operating model and coverage design', 'Launch and pipeline performance dashboard'],
+      },
+    ],
     capabilities: [
       {
         title: 'Go-to-market strategy',
@@ -280,7 +361,7 @@ export const services: Service[] = [
       'A business is entering a new segment, geography or channel',
       'Leadership needs to reset the commercial model after an acquisition',
     ],
-    relatedInsights: ['building-an-effective-execution-pmo'],
+    relatedInsights: [],
   },
 ];
 

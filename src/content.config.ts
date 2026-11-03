@@ -25,6 +25,10 @@ const insights = defineCollection({
     /** Required before an article goes live. Leave empty while it is a draft. */
     publishDate: z.coerce.date().optional(),
     updatedDate: z.coerce.date().optional(),
+    /** Suggested reading order on the Insights page (lower numbers first). */
+    readingOrder: z.number().int().positive().optional(),
+    /** One sentence on the decision or task the article helps with, shown in previews. */
+    useWhen: z.string().max(200).optional(),
   }),
 });
 

@@ -5,6 +5,8 @@ category: "M&A and Transactions"
 author: "Arjun Dhingra"
 draft: false
 publishDate: 2026-11-02
+readingOrder: 1
+useWhen: "You are evaluating a target and need to decide which technology and operational risks to price, protect against or plan for."
 ---
 
 IT diligence usually gets squeezed. It happens in the same few weeks as everything else, the data room is incomplete, and the people who really understand the systems are often not in the room. Under that kind of pressure, it is tempting to treat technology as a checklist item and move on.
@@ -64,6 +66,18 @@ Low IT spend can mean the business is efficient. It can also mean investment has
 A few things to test: whether IT costs reconcile to the general ledger, how much technology spending happens outside central IT, how much labor and software development is being capitalized, how old the infrastructure is, and whether any vendor contracts auto-renew or reprice on a change of control.
 
 What you're after is a realistic view of what it costs to run the technology this business needs, today and under the growth plan. That number is more useful in the model than the current budget line.
+
+## A checklist for the data room
+
+Here are the five red flags in one place, with the evidence worth asking for and the kind of decision each one can lead to. The right response always depends on the deal and the investment case, so treat the last column as a set of options rather than rules.
+
+| Red flag | Evidence to request | Possible decision or action |
+| --- | --- | --- |
+| Aging or heavily customized core platform | System inventory with versions and vendor support dates, a list of major customizations, and the history of any paused upgrade projects | Include upgrade or replacement cost in the model, and adjust the timing of growth initiatives that depend on the platform |
+| Knowledge held by a few people | Architecture and integration documentation, the IT organization chart, and contracts with key contractors | Retention or transition arrangements for key people, and documentation work early in the hold period |
+| Systems and contracts the business doesn't own | A list of shared applications and infrastructure, software contracts with change-of-control or assignment terms, and the proposed TSA scope | Standalone cost estimate, TSA scope and duration agreed in the deal, and a separation plan |
+| Untested cybersecurity | Evidence of multi-factor authentication, the last backup restore test, recent penetration test results and fixes, and incident history | First-100-day security actions with a budget and owner, and specific protections in the deal terms where needed |
+| IT spending that doesn't add up | IT costs reconciled to the general ledger, technology spend outside central IT, capitalized labor and software development, and vendor renewal terms | A normalized run-rate IT cost in the model, plus an estimate of one-time investment |
 
 ## Turning findings into decisions
 

@@ -11,11 +11,21 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'About', href: '/about/' }]
 const { founder } = site;
 const initials = founder.name.split(' ').map((p) => p[0]).join('');
 
+/** Career chronology, most recent first. Facts only; keep in sync with the founder's resume. */
+const career = [
+  { org: 'Samsara Ventures', where: 'New York', role: `${founder.title}, 2025 to present`, text: 'Value creation and cost optimization for private equity-backed businesses, and go-to-market strategy for AI-enabled products.' },
+  { org: 'PwC', where: 'New York', role: 'Senior Manager, M&A advisory', text: 'Led integrations and carve-outs across multiple functional workstreams, including standalone operating models, transition service agreement strategy and Day 1 readiness, and helped clients identify synergies and stranded costs.' },
+  { org: 'EY-Parthenon', where: 'New York', role: 'Director, transaction strategy and execution', text: 'Led integrations, carve-outs and separations across business and technology functions, and conducted operational and IT due diligence.' },
+  { org: 'Deloitte Consulting', where: '', role: 'Consultant', text: 'Business transformation and program management engagements for large organizations across a range of industries.' },
+];
+
+/** How an engagement works in practice. */
 const principles = [
-  { title: 'Senior involvement throughout', text: 'The person who scopes your engagement also leads it and stays closely involved for its full length.' },
-  { title: 'Focused on the deal', text: 'We start from the investment thesis or strategic goal and focus our time on the work that supports it.' },
-  { title: 'Practical', text: 'We build plans, models and processes that your team can keep using after the engagement ends.' },
-  { title: 'Discretion', text: 'We handle client information carefully and do not publicize engagements without permission.' },
+  { title: 'One senior lead, start to finish', text: 'Arjun scopes every engagement and stays on it through delivery. You do not get handed to a team you have not met.' },
+  { title: 'Scoped around your decision', text: 'We start from the investment thesis or the decision in front of you, then agree the outputs and timing up front so effort goes where it matters.' },
+  { title: 'Sized to the situation', text: 'Some work is a focused project with a clear end point. Some is program leadership or embedded support inside the business for as long as it is needed.' },
+  { title: 'Built to hand over', text: 'Plans, models and governance are designed for your team to keep running after the engagement ends.' },
+  { title: 'Discreet', text: 'We handle client information carefully and do not publicize engagements without permission.' },
 ];
 ---
 <BaseLayout
@@ -30,51 +40,30 @@ const principles = [
     crumbs={crumbs}
   />
 
-  <section class="section" aria-labelledby="story-title">
-    <div class="container-site grid gap-12 md:grid-cols-12">
+  <section class="section-tight" aria-labelledby="story-title">
+    <div class="container-site grid gap-10 md:grid-cols-12">
       <div class="md:col-span-5">
         <h2 id="story-title" class="text-h2">Our story</h2>
       </div>
       <div class="space-y-5 text-[1.1rem] md:col-span-7">
         <p>
-          At large advisory firms, senior people often lead the sale and the overall direction of a project, while much of the day-to-day work is done by more junior teams. That model works well for many clients, but some want more direct senior involvement.
+          Samsara Ventures was founded in 2025 so that clients could work with the same experienced advisor from the first conversation through to delivery, rather than seeing senior people mainly at the start and in reviews.
         </p>
         <p>
-          Samsara Ventures was founded in 2025 to offer that. After more than a decade leading M&amp;A transactions, integrations, separations and transformation programs at large advisory firms, our founder set up a firm where clients work with the same experienced advisor from the first conversation through to delivery.
-        </p>
-        <p>
-          The name comes from the idea of cycles. Over time, businesses are formed, combined, separated and renewed, and those moments of change are where we focus our work.
+          The name comes from the idea of cycles. Businesses are formed, combined, separated and renewed, and those moments of change are where we focus.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="section bg-stone" aria-labelledby="principles-title">
-    <div class="container-site">
-      <SectionHead id="principles-title" title="How we work" intro="A few principles that guide how we work with clients." />
-      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        {principles.map((p) => (
-          <div class="border-t-2 border-red pt-5">
-            <h3 class="text-h3">{p.title}</h3>
-            <p class="mt-3 text-[1rem] text-ink-soft">{p.text}</p>
-          </div>
-        ))}
-      </div>
-      <div class="mt-20">
-        <h3 class="mb-10 text-h3">Our approach</h3>
-        <ApproachFlow />
-      </div>
-    </div>
-  </section>
-
-  <section id="founder" class="section" aria-labelledby="founder-title">
+  <section id="founder" class="section border-t border-rule" aria-labelledby="founder-title">
     <div class="container-site grid gap-12 md:grid-cols-12">
       <div class="md:col-span-4">
-        <figure class="max-w-[320px]">
+        <figure class="max-w-[320px] md:sticky md:top-28">
           {founder.photo ? (
             <img src={founder.photo} alt={`Portrait of ${founder.name}, ${founder.title} of Samsara Ventures`} width="640" height="800" class="aspect-[4/5] w-full rounded-xl object-cover" loading="lazy" />
           ) : (
-            <div class="headshot-placeholder relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-xl bg-stone" role="img" aria-label={`${founder.name}, ${founder.title}`}>
+            <div class="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-xl bg-stone" role="img" aria-label={`${founder.name}, ${founder.title}`}>
               <span class="font-sans text-[4.5rem] font-light tracking-wide text-red">{initials}</span>
               {site.showDrafts && <span class="absolute bottom-3 left-3 right-3 rounded bg-[#fff4d6] px-2 py-1 text-center font-sans text-xs text-[#6b4a00]">Placeholder: add photo in site.ts</span>}
             </div>
@@ -89,27 +78,50 @@ const principles = [
         </figure>
       </div>
       <div class="md:col-span-7 md:col-start-6">
-        <p class="kicker">Founder</p>
+        <p class="kicker">Who you will work with</p>
         <h2 id="founder-title" class="mt-3 text-h2">{founder.name}</h2>
-        <div class="mt-6 space-y-5 text-[1.08rem]">
-          <p>
-            Arjun founded Samsara Ventures in 2025 after more than a decade in management consulting focused on mergers and acquisitions and enterprise transformation.
-          </p>
-          <p>
-            Most recently, he was a Senior Manager in PwC’s M&amp;A advisory practice in New York, where he led integrations and carve-outs across multiple functional workstreams, including standalone operating models, transition service agreement strategy and Day 1 readiness, and helped clients identify synergies and stranded costs. Before PwC, he was a Director at EY-Parthenon in New York, working in transaction strategy and execution. There he led integrations, carve-outs and separations across business and technology functions and conducted operational and IT due diligence.
-          </p>
-          <p>
-            He began his career at Deloitte Consulting, where he worked on business transformation and program management engagements for large organizations across a range of industries.
-          </p>
-          <p>
-            Since founding Samsara Ventures, his work has included value creation and cost optimization for private equity-backed businesses and go-to-market strategy for AI-enabled products. He holds a Bachelor of Arts in Economics and Finance from the University of Waterloo.
-          </p>
-        </div>
-        <ul class="mt-8 grid gap-x-8 font-sans text-[0.98rem] sm:grid-cols-2">
-          {['M&A integration and separation', 'IT and operational due diligence', 'Private equity value creation', 'Transformation and PMO leadership', 'Go-to-market and commercialization', 'Operating model design'].map((x) => (
-            <li class="border-t border-rule py-3">{x}</li>
+        <p class="mt-6 text-[1.1rem]">
+          Arjun founded Samsara Ventures after more than a decade in management consulting focused on mergers and acquisitions and enterprise transformation. He leads every engagement personally.
+        </p>
+
+        <h3 class="mt-10 text-h3">Career</h3>
+        <ol class="mt-4">
+          {career.map((c) => (
+            <li class="grid gap-1 border-t border-rule py-5 last:border-b sm:grid-cols-[11rem_1fr] sm:gap-6">
+              <div class="font-sans">
+                <span class="block font-medium">{c.org}</span>
+                {c.where && <span class="block text-[0.92rem] text-ink-muted">{c.where}</span>}
+              </div>
+              <div>
+                <p class="font-sans text-[0.98rem] font-medium">{c.role}</p>
+                <p class="mt-1 text-[1rem] text-ink-soft">{c.text}</p>
+              </div>
+            </li>
           ))}
-        </ul>
+        </ol>
+        <p class="mt-6 text-[1rem] text-ink-soft">Education: Bachelor of Arts in Economics and Finance, University of Waterloo.</p>
+
+        <p class="mt-8">
+          <a href="/experience/" class="link-arrow">See examples of this experience</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-stone" aria-labelledby="principles-title">
+    <div class="container-site">
+      <SectionHead id="principles-title" title="How an engagement works" intro="What working with us looks like in practice." />
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
+        {principles.map((p) => (
+          <div class="border-t-2 border-red pt-5">
+            <h3 class="text-h3">{p.title}</h3>
+            <p class="mt-3 text-[1rem] text-ink-soft">{p.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-20">
+        <h3 class="mb-10 text-h3">Our approach</h3>
+        <ApproachFlow />
       </div>
     </div>
   </section>
