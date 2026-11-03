@@ -24,24 +24,6 @@ export type ExperienceGroup = { id: string; title: string; intro: string; items:
 
 export const experienceGroups: ExperienceGroup[] = [
   {
-    id: 'diligence',
-    title: 'Due diligence',
-    intro: 'Independent views of a target’s operations and technology before a deal is signed.',
-    items: [
-      {
-        context: 'prior',
-        industry: 'Healthcare technology',
-        title: 'Operational and IT due diligence on a healthcare technology company for a private equity buyer',
-        challenge:
-          'A private equity firm evaluating the acquisition of a healthcare technology business needed an independent view of how the company operated and whether its technology could support the investment plan.',
-        support:
-          'Assessed the target’s operations and technology, including its platform, infrastructure, key dependencies and IT organization, and identified the risks and investment needs to reflect in the deal and the first 100 days.',
-        capabilities: ['Operational due diligence', 'IT due diligence', 'Risk assessment', '100-day priorities'],
-        confirm: 'Prior-firm example (PwC). Confirm the scope description matches the engagement.',
-      },
-    ],
-  },
-  {
     id: 'value-creation',
     title: 'Value creation and transformation',
     intro: 'Turning an investment thesis into a set of prioritized initiatives and helping to deliver them.',
@@ -78,13 +60,31 @@ export const experienceGroups: ExperienceGroup[] = [
     ],
   },
   {
+    id: 'diligence',
+    title: 'Due diligence',
+    intro: 'Independent views of a target’s operations and technology before a deal is signed.',
+    items: [
+      {
+        context: 'prior',
+        industry: 'Healthcare technology',
+        title: 'Operational and IT due diligence on a healthcare technology company for a private equity buyer',
+        challenge:
+          'A private equity firm evaluating the acquisition of a healthcare technology business needed an independent view of how the company operated and whether its technology could support the investment plan.',
+        support:
+          'Assessed the target’s operations and technology, including its platform, infrastructure, key dependencies and IT organization, and identified the risks and investment needs to reflect in the deal and the first 100 days.',
+        capabilities: ['Operational due diligence', 'IT due diligence', 'Risk assessment', '100-day priorities'],
+        confirm: 'Prior-firm example (PwC). Confirm the scope description matches the engagement.',
+      },
+    ],
+  },
+  {
     id: 'integration',
     title: 'Integration',
     intro: 'Planning and managing the combination of two organizations.',
     items: [
       {
         context: 'prior',
-        industry: 'Business services',
+        industry: 'Testing, inspection and certification',
         title: 'Operational integration planning and synergy analysis in industrial testing and certification',
         challenge:
           'The combination of two significant companies in the testing and certification sector required a coordinated integration across functions while protecting service quality.',
@@ -142,6 +142,6 @@ export const industries = [
   'Financial services',
   'Industrials and manufacturing',
   'Aerospace and defense',
-  'Business services, including staffing and testing, inspection and certification',
+  'Business services',
   'Technology',
 ];

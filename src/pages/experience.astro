@@ -30,10 +30,10 @@ if (unresolved.length) {
   />
 
   <nav class="border-b border-rule" aria-label="Types of work">
-    <div class="container-site flex flex-wrap items-center gap-x-3 gap-y-3 py-8">
-      <span class="mr-2 font-sans text-[0.98rem] text-ink-soft">Browse by type of work:</span>
+    <div class="container-site flex flex-wrap items-center gap-2.5 py-8 xl:flex-nowrap">
+      <span class="mr-1 whitespace-nowrap font-sans text-[0.95rem] text-ink-soft">Browse by type of work:</span>
       {experienceGroups.map((g) => (
-        <a href={`#${g.id}`} class="rounded-full border border-rule px-4 py-1.5 font-sans text-[0.95rem] text-ink no-underline transition-colors hover:border-ink hover:bg-ink hover:text-white">{g.title}</a>
+        <a href={`#${g.id}`} class="whitespace-nowrap rounded-full border-[1.5px] border-red px-3.5 py-1.5 font-sans text-[0.92rem] font-medium text-red no-underline transition-colors hover:bg-red hover:text-white">{g.title}</a>
       ))}
     </div>
   </nav>
