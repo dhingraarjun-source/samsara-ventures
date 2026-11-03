@@ -11,14 +11,6 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'About', href: '/about/' }]
 const { founder } = site;
 const initials = founder.name.split(' ').map((p) => p[0]).join('');
 
-/** Career chronology, most recent first. Facts only; keep in sync with the founder's resume. */
-const career = [
-  { org: 'Samsara Ventures', where: 'New York', role: `${founder.title}, 2025 to present`, text: 'Value creation and cost optimization for private equity-backed businesses, and go-to-market strategy for AI-enabled products.' },
-  { org: 'PwC', where: 'New York', role: 'Senior Manager, M&A advisory', text: 'Led integrations and carve-outs across multiple functional workstreams, including standalone operating models, transition service agreement strategy and Day 1 readiness, and helped clients identify synergies and stranded costs.' },
-  { org: 'EY-Parthenon', where: 'New York', role: 'Director, transaction strategy and execution', text: 'Led integrations, carve-outs and separations across business and technology functions, and conducted operational and IT due diligence.' },
-  { org: 'Deloitte Consulting', where: '', role: 'Consultant', text: 'Business transformation and program management engagements for large organizations across a range of industries.' },
-];
-
 /** How an engagement works in practice. */
 const principles = [
   { title: 'One senior lead, start to finish', text: 'Arjun scopes every engagement and stays on it through delivery. You do not get handed to a team you have not met.' },
@@ -80,26 +72,25 @@ const principles = [
       <div class="md:col-span-7 md:col-start-6">
         <p class="kicker">Who you will work with</p>
         <h2 id="founder-title" class="mt-3 text-h2">{founder.name}</h2>
-        <p class="mt-6 text-[1.1rem]">
-          Arjun founded Samsara Ventures after more than a decade in management consulting focused on mergers and acquisitions and enterprise transformation. He leads every engagement personally.
-        </p>
-
-        <h3 class="mt-10 text-h3">Career</h3>
-        <ol class="mt-4">
-          {career.map((c) => (
-            <li class="grid gap-1 border-t border-rule py-5 last:border-b sm:grid-cols-[11rem_1fr] sm:gap-6">
-              <div class="font-sans">
-                <span class="block font-medium">{c.org}</span>
-                {c.where && <span class="block text-[0.92rem] text-ink-muted">{c.where}</span>}
-              </div>
-              <div>
-                <p class="font-sans text-[0.98rem] font-medium">{c.role}</p>
-                <p class="mt-1 text-[1rem] text-ink-soft">{c.text}</p>
-              </div>
-            </li>
+        <div class="mt-6 space-y-5 text-[1.08rem]">
+          <p>
+            Arjun founded Samsara Ventures in 2025 after more than a decade in management consulting focused on mergers and acquisitions and enterprise transformation.
+          </p>
+          <p>
+            Most recently, he was a Senior Manager in PwC’s M&amp;A advisory practice in New York, where he led integrations and carve-outs across multiple functional workstreams, including standalone operating models, transition service agreement strategy and Day 1 readiness, and helped clients identify synergies and stranded costs. Before PwC, he was a Director at EY-Parthenon in New York, working in transaction strategy and execution. There he led integrations, carve-outs and separations across business and technology functions and conducted operational and IT due diligence.
+          </p>
+          <p>
+            He began his career at Deloitte Consulting, where he worked on business transformation and program management engagements for large organizations across a range of industries.
+          </p>
+          <p>
+            Since founding Samsara Ventures, his work has included value creation and cost optimization for private equity-backed businesses and go-to-market strategy for AI-enabled products. He holds a Bachelor of Arts in Economics and Finance from the University of Waterloo.
+          </p>
+        </div>
+        <ul class="mt-8 grid gap-x-8 font-sans text-[0.98rem] sm:grid-cols-2">
+          {['M&A integration and separation', 'IT and operational due diligence', 'Private equity value creation', 'Transformation and PMO leadership', 'Go-to-market and commercialization', 'Operating model design'].map((x) => (
+            <li class="border-t border-rule py-3">{x}</li>
           ))}
-        </ol>
-        <p class="mt-6 text-[1rem] text-ink-soft">Education: Bachelor of Arts in Economics and Finance, University of Waterloo.</p>
+        </ul>
 
         <p class="mt-8">
           <a href="/experience/" class="link-arrow">See examples of this experience</a>
