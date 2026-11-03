@@ -29,18 +29,14 @@ if (unresolved.length) {
     crumbs={crumbs}
   />
 
-  <section class="section-tight border-b border-rule" aria-label="How to read these examples">
-    <div class="container-site grid gap-8 md:grid-cols-12">
-      <p class="text-ink-soft md:col-span-7">
-        Each example is labelled with its context. <strong class="text-ink">Samsara Ventures engagements</strong> were delivered by the firm. Examples marked as <strong class="text-ink">prior experience</strong> describe work our founder led at previous advisory firms; they were not engagements of Samsara Ventures.
-      </p>
-      <nav aria-label="Jump to" class="md:col-span-4 md:col-start-9">
-        <ul class="font-sans text-[0.98rem]">
-          {experienceGroups.map((g) => <li class="border-t border-rule py-2.5 last:border-b"><a href={`#${g.id}`} class="no-underline hover:underline">{g.title}</a></li>)}
-        </ul>
-      </nav>
+  <nav class="border-b border-rule" aria-label="Types of work">
+    <div class="container-site flex flex-wrap items-center gap-x-3 gap-y-3 py-8">
+      <span class="mr-2 font-sans text-[0.98rem] text-ink-soft">Browse by type of work:</span>
+      {experienceGroups.map((g) => (
+        <a href={`#${g.id}`} class="rounded-full border border-rule px-4 py-1.5 font-sans text-[0.95rem] text-ink no-underline transition-colors hover:border-ink hover:bg-ink hover:text-white">{g.title}</a>
+      ))}
     </div>
-  </section>
+  </nav>
 
   {experienceGroups.map((group, gi) => (
     <section id={group.id} class:list={['section', gi % 2 === 1 && 'bg-stone']} aria-labelledby={`${group.id}-title`}>
@@ -78,7 +74,7 @@ if (unresolved.length) {
     <div class="container-site grid gap-12 md:grid-cols-12">
       <div class="md:col-span-5">
         <h2 id="industries-title" class="text-h2 text-white">Industries</h2>
-        <p class="mt-4 text-white/75">The industries represented in the examples above. We also work with companies in other sectors.</p>
+        <p class="mt-4 text-white/75">Sectors where we have worked on transactions and transformation programs.</p>
       </div>
       <ul class="font-sans text-[1.1rem] md:col-span-6 md:col-start-7">
         {industries.map((i) => <li class="border-t border-white/15 py-3.5 last:border-b">{i}</li>)}
