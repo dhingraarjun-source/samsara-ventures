@@ -1,5 +1,5 @@
 ---
-/** Floating "back to top" button. Appears after the visitor scrolls down about one screen. */
+/** Floating "back to top" button on every page. Appears after the visitor scrolls down about half a screen. */
 ---
 <button type="button" class="back-to-top" aria-label="Back to top" hidden>
   <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
@@ -28,7 +28,7 @@
   if (btn) {
     let hideTimer: number | undefined;
     const update = () => {
-      const show = window.scrollY > window.innerHeight;
+      const show = window.scrollY > window.innerHeight * 0.5;
       if (show) {
         window.clearTimeout(hideTimer);
         btn.hidden = false;
