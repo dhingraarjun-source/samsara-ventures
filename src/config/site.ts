@@ -15,7 +15,7 @@ export const site = {
   url: 'https://www.thesamsaraventures.com',
   tagline: 'Senior M&A Advisory. From Strategy to Execution.',
   description:
-    'Samsara Ventures is a boutique, senior-led advisory firm supporting private equity firms and corporate leaders with M&A transactions, value creation, business transformation and growth strategy.',
+    'Samsara Ventures is a boutique M&A advisory firm focused on the operational and technology side of deals, supporting private equity firms and corporate acquirers with due diligence, integration, carve-outs and value creation.',
   email: 'info@thesamsaraventures.com',
   location: 'New York, NY',
   serviceArea: 'North America',

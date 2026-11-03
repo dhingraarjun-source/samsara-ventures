@@ -14,6 +14,8 @@ export type Service = {
   name: string;
   /** One-sentence summary used on the homepage and Services page. */
   summary: string;
+  /** Core services lead the homepage; secondary services are shown more briefly. */
+  primary: boolean;
   /** Short buying trigger: when a client typically calls about this service. */
   trigger: string;
   /** One representative deliverable, used to compare services. */
@@ -39,7 +41,8 @@ export const services: Service[] = [
     href: '/services/transaction-advisory/',
     name: 'Transaction Advisory',
     summary:
-      'Diligence, integration and separation support that protects deal value from the first look at a target through the first hundred days after close.',
+      'Operational and IT due diligence, integration and separation support, from the first look at a target through the first hundred days after close.',
+    primary: true,
     trigger: 'You are evaluating a target, preparing to close, or separating a business from its parent.',
     sampleOutput: 'IT and operational due diligence findings with estimated one-time and run-rate costs',
     highlights: [
@@ -157,7 +160,8 @@ export const services: Service[] = [
     href: '/services/value-creation/',
     name: 'Value Creation & Transformation',
     summary:
-      'Value creation planning and hands-on transformation leadership that turn an investment thesis or strategic plan into measurable operating results.',
+      'Value creation planning and hands-on leadership of the operational and technology programs that deliver it.',
+    primary: true,
     trigger: 'A value creation plan needs to be built, or an existing plan needs someone to drive delivery.',
     sampleOutput: 'Value creation plan with sized, sequenced initiatives and owners',
     highlights: [
@@ -267,7 +271,8 @@ export const services: Service[] = [
     href: '/services/growth-strategy/',
     name: 'Growth & Commercial Strategy',
     summary:
-      'Go-to-market planning and commercialization support that turns new products, markets and channels into revenue.',
+      'Go-to-market planning and commercialization support for new products, markets and channels.',
+    primary: false,
     trigger: 'You are launching a product, entering a new market or resetting how the business sells.',
     sampleOutput: 'Go-to-market strategy and launch plan, with target buyer profiles and positioning',
     highlights: [

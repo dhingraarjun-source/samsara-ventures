@@ -2,7 +2,6 @@
 /** Shared template for the three service detail pages. Content comes from src/data/services.ts. */
 import BaseLayout from './BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
-import SectionHead from '@/components/SectionHead.astro';
 import CTABand from '@/components/CTABand.astro';
 import { services, type Service } from '@/data/services';
 import { site } from '@/config/site';
@@ -36,7 +35,7 @@ const insights = (await getPublishedInsights()).filter((a) => service.relatedIns
     <div class="container-site grid gap-12 md:grid-cols-12">
       <div class="md:col-span-6">
         <h2 id="context" class="text-h2">{service.context.title}</h2>
-        {service.context.paragraphs.map((p) => <p class="mt-6 text-ink-soft">{p}</p>)}
+        <p class="mt-6 text-ink-soft">{service.context.paragraphs[0]}</p>
       </div>
       <div class="md:col-span-5 md:col-start-8">
         <h3 class="text-h3">Challenges we are brought in to solve</h3>
@@ -67,54 +66,32 @@ const insights = (await getPublishedInsights()).filter((a) => service.relatedIns
     </div>
   </section>
 
-  <!-- Capabilities -->
-  <section class="section bg-stone" aria-labelledby="capabilities">
-    <div class="container-site">
-      <SectionHead id="capabilities" title="Advisory capabilities" intro="What we can help with in this area. Most engagements draw on several of these, depending on the deal or program." />
-      <div class="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-        {service.capabilities.map((c) => (
-          <div class="border-t-2 border-red pt-5">
-            <h3 class="text-h3">{c.title}</h3>
-            <p class="mt-3 text-[1rem] text-ink-soft">{c.text}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Deliverables and situations -->
-  <section class="section" aria-labelledby="deliverables">
+  <!-- Capabilities and situations -->
+  <section class="section-tight bg-stone" aria-labelledby="capabilities">
     <div class="container-site grid gap-14 md:grid-cols-2 md:gap-16">
       <div>
-        <h2 id="deliverables" class="text-h2">Typical deliverables</h2>
-        <p class="mt-4 text-ink-soft">Depending on the scope, these may include:</p>
-        <ul class="rule-list mt-6">
-          {service.deliverables.map((d) => <li>{d}</li>)}
+        <h2 id="capabilities" class="text-h2">Capabilities</h2>
+        <p class="mt-3 text-ink-soft">Select one to see what it covers.</p>
+        <ul class="mt-6 border-t border-rule">
+          {service.capabilities.map((c) => (
+            <li class="border-b border-rule">
+              <details class="cap group">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-3.5 font-sans text-[1.05rem] font-medium">
+                  {c.title}
+                  <span class="cap-icon text-red" aria-hidden="true">+</span>
+                </summary>
+                <p class="pb-4 text-[1rem] text-ink-soft">{c.text}</p>
+              </details>
+            </li>
+          ))}
         </ul>
       </div>
       <div>
         <h2 class="text-h2">Situations where we can help</h2>
-        <p class="mt-4 text-ink-soft">Some of the situations where clients bring us in:</p>
         <ul class="rule-list mt-6">
-          {service.situations.map((s) => <li>{s}</li>)}
+          {service.situations.map((x) => <li>{x}</li>)}
         </ul>
       </div>
-    </div>
-  </section>
-
-  <!-- Approach -->
-  <section class="on-dark section bg-ink text-white" aria-labelledby="approach">
-    <div class="container-site">
-      <SectionHead id="approach" title="Our approach" intro="How we typically approach this work. Every engagement is different, so the steps are adjusted to fit the situation." dark />
-      <ol class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        {service.approach.map((step, i) => (
-          <li class="border-t border-white/20 pt-6">
-            <span class="font-sans text-sm text-red-soft">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="mt-2 text-h3 text-white">{step.title}</h3>
-            <p class="mt-3 text-[1rem] text-white/75">{step.text}</p>
-          </li>
-        ))}
-      </ol>
     </div>
   </section>
 
@@ -146,3 +123,10 @@ const insights = (await getPublishedInsights()).filter((a) => service.relatedIns
 
   <CTABand />
 </BaseLayout>
+
+<style>
+  .cap summary::-webkit-details-marker { display: none; }
+  .cap-icon { font-size: 1.4rem; line-height: 1; transition: transform .2s; }
+  .cap[open] .cap-icon { transform: rotate(45deg); }
+  .cap summary:hover { color: var(--color-red); }
+</style>

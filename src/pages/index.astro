@@ -2,30 +2,25 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Wheel from '@/components/Wheel.astro';
 import SectionHead from '@/components/SectionHead.astro';
-import ApproachFlow from '@/components/ApproachFlow.astro';
+import Testimonials from '@/components/Testimonials.astro';
 import CTABand from '@/components/CTABand.astro';
 import { services } from '@/data/services';
 import { site } from '@/config/site';
 import { getVisibleInsights, isLive } from '@/utils/insights';
 
 const live = (await getVisibleInsights()).filter((a) => isLive(a)).slice(0, 3);
-
-const audiences = [
-  'Private equity firms and their portfolio companies',
-  'Corporate development and M&A executives',
-  'C-suite leaders navigating complex transformations',
-  'Organizations that need experienced, hands-on execution leadership',
-];
+const core = services.filter((s) => s.primary);
+const secondary = services.filter((s) => !s.primary);
 
 const differentiators = [
+  { title: 'Operational and technology depth', text: 'We focus on how the business runs day to day, including its systems, processes and shared services, which is where many deal costs and delays come from.' },
   { title: 'Senior expertise, directly delivered', text: 'The person who scopes your engagement does the work, from the first conversation through to delivery.' },
-  { title: 'Flexible, tailored engagements', text: 'Scope, team and timing are set around your deal or program, not a standard package.' },
-  { title: 'Strategy through execution', text: 'Recommendations come with the plans, owners and tracking needed to carry them out, and we can stay on to lead delivery.' },
+  { title: 'From diligence through execution', text: 'The same advisor can assess a target, plan the integration or separation, and lead delivery after close.' },
 ];
 ---
 <BaseLayout
   title="Samsara Ventures | Boutique M&A Advisory & Value Creation"
-  description="Senior-led M&A advisory for private equity firms and corporate leaders: IT due diligence, integration, carve-outs, value creation and transformation."
+  description="M&A advisory focused on operations and technology: IT and operational due diligence, integration, carve-outs and value creation for private equity firms and corporate acquirers."
   headerVariant="overlay"
 >
   <!-- Hero -->
@@ -33,63 +28,43 @@ const differentiators = [
     <div class="hero-wheel pointer-events-none absolute text-white">
       <Wheel spin class="h-full w-full" />
     </div>
-    <div class="container-site relative pb-24 pt-40 md:pb-32 md:pt-48">
-      <h1 id="hero-title" class="max-w-[13ch] text-display text-white">Senior M&amp;A Advisory. From Strategy to Execution.</h1>
-      <p class="mt-8 max-w-2xl text-lede text-white/90">
-        Samsara Ventures partners with private equity firms and corporate leaders to navigate complex transactions, accelerate value creation and execute critical business transformations.
+    <div class="container-site relative pb-20 pt-36 md:pb-28 md:pt-48">
+      <h1 id="hero-title" class="max-w-[15ch] text-display text-white">M&amp;A advisory built on operational and technology depth.</h1>
+      <p class="mt-7 max-w-2xl text-lede text-white/90">
+        We help private equity firms and corporate acquirers understand, integrate and separate the operations and technology behind a deal, then deliver the value creation plan that follows.
       </p>
-      <div class="mt-10 flex flex-wrap gap-3">
+      <div class="mt-9 flex flex-wrap gap-3">
         <a href="/contact/" class="btn btn-light">Speak With an Advisor</a>
         <a href="#expertise" class="btn btn-outline-light">Explore Our Expertise</a>
       </div>
-      <p class="mt-14 max-w-xl border-t border-white/25 pt-6 font-sans text-[0.98rem] text-white/85">
+      <p class="mt-12 max-w-xl border-t border-white/25 pt-6 font-sans text-[0.98rem] text-white/85">
         Led by <a href="/about/#founder" class="font-medium text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">Arjun Dhingra</a>, who spent more than a decade on M&amp;A and transformation work at PwC, EY-Parthenon and Deloitte.
       </p>
     </div>
   </section>
 
-  <!-- Who we are -->
-  <section class="section" aria-labelledby="who-title">
-    <div class="container-site grid gap-12 md:grid-cols-12">
-      <div class="md:col-span-6">
-        <p class="kicker">Who we are</p>
-        <h2 id="who-title" class="mt-4 text-h2">A boutique advisory firm that combines strategic insight with execution.</h2>
-        <p class="mt-6 text-ink-soft">
-          Samsara Ventures advises on transactions and the work that follows them: diligence before signing, integration or separation after close, and the value creation and growth programs that make the deal case real.
-        </p>
-        <p class="mt-4 text-ink-soft">
-          Engagements range from a focused diligence project to running an integration program or working inside a portfolio company on its value creation plan.
-        </p>
-        <a href="/about/" class="link-arrow mt-6 inline-block">More about the firm</a>
-      </div>
-      <div class="md:col-span-5 md:col-start-8">
-        <h3 class="text-h3">Who we work with</h3>
-        <ul class="rule-list mt-5">
-          {audiences.map((a) => <li>{a}</li>)}
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <!-- Expertise -->
-  <section id="expertise" class="section bg-stone" aria-labelledby="expertise-title">
+  <section id="expertise" class="section" aria-labelledby="expertise-title">
     <div class="container-site">
-      <SectionHead id="expertise-title" title="Our expertise" intro="We work in three areas, covering the period before a deal is signed through integration, value creation and growth." />
-      <div class="grid gap-12 md:grid-cols-3 md:gap-10">
-        {services.map((s) => (
-          <article class="pillar flex flex-col border-t-[3px] border-red pt-6">
+      <SectionHead id="expertise-title" title="Our expertise" intro="For private equity firms, portfolio companies and corporate development teams, before and after a deal closes." />
+      <div class="grid gap-10 md:grid-cols-2 md:gap-12">
+        {core.map((s) => (
+          <article class="flex flex-col border-t-[3px] border-red pt-6">
             <h3 class="text-[1.55rem]"><a href={s.href} class="text-ink no-underline hover:text-red">{s.name}</a></h3>
-            <p class="mt-3 text-[1rem] text-ink-soft">{s.summary}</p>
+            <p class="mt-3 text-ink-soft">{s.summary}</p>
             <p class="mt-4 text-[0.98rem]"><span class="font-sans font-medium text-red">Call us when: </span>{s.trigger.charAt(0).toLowerCase() + s.trigger.slice(1)}</p>
-            <ul class="rule-list mt-6 flex-1 text-[0.98rem]">
-              {s.highlights.map((h) => <li class="py-2.5">{h}</li>)}
-            </ul>
-            <a href={s.href} class="link-arrow mt-6" aria-label={`Learn more about ${s.name}`}>Learn more</a>
+            <a href={s.href} class="link-arrow mt-5" aria-label={`Learn more about ${s.name}`}>Learn more</a>
           </article>
         ))}
       </div>
-      <p class="mt-14 border-t border-rule pt-8 text-ink-soft">
-        Want to see how this work plays out? <a href="/experience/" class="link-arrow">Browse examples of our experience</a> or <a href="/services/" class="link-arrow">compare the three services</a>.
+      {secondary.map((s) => (
+        <p class="mt-10 border-t border-rule pt-6 text-ink-soft">
+          <span class="font-sans font-medium text-ink">Also: </span>
+          <a href={s.href} class="link-arrow">{s.name}</a>, {s.summary.charAt(0).toLowerCase() + s.summary.slice(1)}
+        </p>
+      ))}
+      <p class="mt-4 text-ink-soft">
+        <a href="/experience/" class="link-arrow">See examples of our experience</a>
       </p>
     </div>
   </section>
@@ -98,48 +73,42 @@ const differentiators = [
   <section class="on-dark section relative overflow-hidden bg-ink text-white" aria-labelledby="why-title">
     <Wheel class="why-mark pointer-events-none absolute text-white" />
     <div class="container-site relative">
-      <SectionHead id="why-title" title="Why Samsara" intro="Big Four-caliber experience, delivered through a flexible, senior-led advisory model." dark />
-      <div class="grid gap-12 md:grid-cols-3 md:gap-10">
-        {differentiators.map((d, i) => (
-          <div class="border-t border-white/20 pt-8">
-            <span class="font-sans text-[2.6rem] font-light leading-none text-red-soft">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="mt-6 text-[1.5rem] text-white">{d.title}</h3>
-            <p class="mt-4 text-white/75">{d.text}</p>
+      <SectionHead id="why-title" title="Why Samsara" intro="Big Four transaction experience with a focus on operations and technology, delivered by a senior advisor." dark />
+      <div class="grid gap-10 md:grid-cols-3">
+        {differentiators.map((d) => (
+          <div class="border-t border-white/20 pt-6">
+            <h3 class="text-[1.4rem] text-white">{d.title}</h3>
+            <p class="mt-3 text-white/75">{d.text}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Approach -->
-  <section class="section" aria-labelledby="approach-title">
-    <div class="container-site">
-      <SectionHead id="approach-title" title="Our approach" intro="This is how we usually run an engagement. The details vary with each deal and team, but these four steps are a good guide to what to expect." />
-      <ApproachFlow />
-    </div>
-  </section>
+  <Testimonials />
 
   <!-- City image -->
   <figure class="relative">
-    <img src="/img/skyline.jpg" alt="Lower Manhattan skyline at dusk, seen across the East River" width="2000" height="933" loading="lazy" decoding="async" class="h-[300px] w-full object-cover md:h-[440px]" style="object-position: 50% 45%;" />
-    <figcaption class="container-site absolute inset-x-0 bottom-0 pb-6 font-sans text-[0.95rem] text-white/90 [text-shadow:0_1px_8px_rgb(0_0_0/.5)]">
+    <img src="/img/skyline.jpg" alt="Lower Manhattan skyline at dusk, seen across the East River" width="2000" height="933" loading="lazy" decoding="async" class="h-[220px] w-full object-cover md:h-[400px]" style="object-position: 50% 45%;" />
+    <figcaption class="container-site absolute inset-x-0 bottom-0 pb-5 font-sans text-[0.95rem] text-white/90 [text-shadow:0_1px_8px_rgb(0_0_0/.5)]">
       Based in {site.location}. Working with clients across {site.serviceArea}.
     </figcaption>
   </figure>
 
   {live.length > 0 && (
-    <section class="section" aria-labelledby="insights-title">
+    <section class="section-tight" aria-labelledby="insights-title">
       <div class="container-site">
-        <SectionHead id="insights-title" title="Latest insights" intro="Perspectives on transactions, value creation and transformation." />
-        <ul class="grid gap-x-10 md:grid-cols-3">
+        <div class="flex flex-wrap items-baseline justify-between gap-4">
+          <h2 id="insights-title" class="text-h2">Latest insights</h2>
+          <a href="/insights/" class="link-arrow">All insights</a>
+        </div>
+        <ul class="mt-6 grid gap-x-10 md:grid-cols-3">
           {live.map((a) => (
-            <li class="border-t border-rule py-6">
-              <p class="font-sans text-[0.9rem] text-red">{a.data.category}</p>
-              <a href={`/insights/${a.id}/`} class="mt-2 block font-sans text-[1.25rem] font-medium leading-snug text-ink no-underline hover:text-red">{a.data.title}</a>
+            <li class="border-t border-rule py-5">
+              <a href={`/insights/${a.id}/`} class="block font-sans text-[1.15rem] font-medium leading-snug text-ink no-underline hover:text-red">{a.data.title}</a>
             </li>
           ))}
         </ul>
-        <a href="/insights/" class="link-arrow mt-8 inline-block">All insights</a>
       </div>
     </section>
   )}

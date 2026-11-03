@@ -1,6 +1,6 @@
 # Samsara Ventures
 
-> Samsara Ventures is a boutique, senior-led advisory firm based in New York. It supports private equity firms, portfolio companies and corporate leaders with M&A transactions, private equity value creation, business transformation and growth strategy across North America.
+> Samsara Ventures is a boutique M&A advisory firm based in New York, focused on the operational and technology side of deals. It supports private equity firms, portfolio companies and corporate acquirers across North America with IT and operational due diligence, integration, carve-outs and separations, and value creation, with growth and go-to-market strategy as a secondary offer.
 
 ## Services
 - [Transaction Advisory](https://www.thesamsaraventures.com/services/transaction-advisory/): operational and IT due diligence, M&A integration, carve-outs and separations, transition service agreements, Day 1 and Day 100 readiness, synergy identification and execution

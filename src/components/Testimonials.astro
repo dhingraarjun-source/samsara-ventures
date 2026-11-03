@@ -1,0 +1,43 @@
+---
+/**
+ * Testimonials section. Renders nothing on the live site until at least one
+ * testimonial in src/data/testimonials.ts is approved. In draft preview
+ * (PUBLIC_SHOW_DRAFTS=true) it shows a placeholder so the layout can be reviewed.
+ */
+import { approvedTestimonials } from '@/data/testimonials';
+import { site } from '@/config/site';
+
+export interface Props { title?: string; limit?: number }
+const { title = 'What clients and colleagues say', limit = 3 } = Astro.props;
+const items = approvedTestimonials.slice(0, limit);
+const show = items.length > 0 || site.showDrafts;
+---
+{show && (
+  <section class="section-tight border-t border-rule" aria-labelledby="testimonials-title">
+    <div class="container-site">
+      <h2 id="testimonials-title" class="text-h2">{title}</h2>
+      {items.length > 0 ? (
+        <ul class:list={['mt-10 grid gap-10', items.length > 1 && 'md:grid-cols-2', items.length > 2 && 'lg:grid-cols-3']}>
+          {items.map((t) => (
+            <li>
+              <figure class="flex h-full flex-col border-l-[3px] border-red pl-6">
+                <blockquote class="flex-1 text-[1.15rem] leading-relaxed">
+                  <p>“{t.quote}”</p>
+                </blockquote>
+                <figcaption class="mt-5 font-sans text-[0.95rem]">
+                  {t.name && <span class="block font-medium">{t.name}</span>}
+                  <span class="block text-ink-soft">{t.role}, {t.organization}</span>
+                  {t.context === 'prior' && <span class="mt-1 block text-[0.85rem] text-ink-muted">About work at a previous firm</span>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-6 rounded-md border border-[#f0d58a] bg-[#fff4d6] px-4 py-3 font-sans text-[0.9rem] text-[#6b4a00]">
+          Placeholder: add approved quotes in src/data/testimonials.ts. This section is hidden on the live site until then.
+        </p>
+      )}
+    </div>
+  </section>
+)}
