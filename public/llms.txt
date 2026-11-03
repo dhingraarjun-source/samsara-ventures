@@ -1,0 +1,22 @@
+# Samsara Ventures
+
+> Samsara Ventures is a boutique, senior-led advisory firm based in New York. It supports private equity firms, portfolio companies and corporate leaders with M&A transactions, private equity value creation, business transformation and growth strategy across North America.
+
+## Services
+- [Transaction Advisory](https://www.thesamsaraventures.com/services/transaction-advisory/): operational and IT due diligence, M&A integration, carve-outs and separations, transition service agreements, Day 1 and Day 100 readiness, synergy identification and execution
+- [Value Creation & Transformation](https://www.thesamsaraventures.com/services/value-creation/): private equity value creation planning, execution PMO leadership, operating model transformation, cost optimization, technology and business transformation, performance improvement
+- [Growth & Commercial Strategy](https://www.thesamsaraventures.com/services/growth-strategy/): go-to-market strategy and execution, product commercialization (including AI-enabled products), growth planning, commercial operating models, sales enablement
+
+## Who it serves
+- Private equity firms and their portfolio companies
+- Corporate development and M&A executives
+- C-suite leaders navigating complex transformations
+
+## About
+- [About](https://www.thesamsaraventures.com/about/): founded in 2025 by Arjun Dhingra, Founder & Managing Partner, previously at PwC (M&A advisory), EY-Parthenon (transaction strategy and execution) and Deloitte Consulting
+- [Experience](https://www.thesamsaraventures.com/experience/): anonymized examples of integration, separation, value creation and go-to-market work
+
+## Contact
+- [Contact](https://www.thesamsaraventures.com/contact/)
+- Email: info@thesamsaraventures.com
+- Location: New York, NY

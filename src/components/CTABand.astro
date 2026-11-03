@@ -1,0 +1,26 @@
+---
+/** Closing call to action used at the bottom of most pages. */
+import { site } from '@/config/site';
+export interface Props {
+  title?: string;
+  text?: string;
+  primaryLabel?: string;
+}
+const {
+  title = 'Navigating a complex transaction or transformation?',
+  text = 'Connect with Samsara Ventures to discuss your priorities.',
+  primaryLabel = 'Schedule an Introductory Conversation',
+} = Astro.props;
+---
+<section class="on-red relative overflow-hidden bg-red text-white" aria-labelledby="cta-title">
+  <div class="container-site relative grid gap-8 py-20 md:grid-cols-12 md:items-end md:py-24">
+    <div class="md:col-span-7">
+      <h2 id="cta-title" class="text-h2 text-white">{title}</h2>
+      <p class="mt-4 max-w-xl text-lede text-white/85">{text}</p>
+    </div>
+    <div class="flex flex-wrap gap-3 md:col-span-5 md:justify-end">
+      <a href={site.bookingUrl} class="btn btn-light" target="_blank" rel="noopener">{primaryLabel}</a>
+      <a href="/contact/" class="btn btn-outline-light">Send a message</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,118 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHead from '@/components/SectionHead.astro';
+import ApproachFlow from '@/components/ApproachFlow.astro';
+import CTABand from '@/components/CTABand.astro';
+import { site } from '@/config/site';
+import { breadcrumbSchema, personSchema } from '@/utils/schema';
+
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'About', href: '/about/' }];
+const { founder } = site;
+const initials = founder.name.split(' ').map((p) => p[0]).join('');
+
+const principles = [
+  { title: 'Senior involvement throughout', text: 'The person who scopes your engagement also leads it and stays closely involved for its full length.' },
+  { title: 'Focused on the deal', text: 'We start from the investment thesis or strategic goal and focus our time on the work that supports it.' },
+  { title: 'Practical', text: 'We build plans, models and processes that your team can keep using after the engagement ends.' },
+  { title: 'Discretion', text: 'We handle client information carefully and do not publicize engagements without permission.' },
+];
+---
+<BaseLayout
+  title="About the Firm and Founder"
+  description="Why Samsara Ventures was founded, how the firm works, and the background of founder Arjun Dhingra across M&A, integration, carve-outs and transformation."
+  schema={[breadcrumbSchema(crumbs), personSchema()]}
+>
+  <PageHero
+    kicker="About"
+    title="About Samsara Ventures"
+    lede="Samsara Ventures is a boutique advisory firm based in New York. We work with private equity firms and corporate leaders on transactions, value creation and transformation."
+    crumbs={crumbs}
+  />
+
+  <section class="section" aria-labelledby="story-title">
+    <div class="container-site grid gap-12 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <h2 id="story-title" class="text-h2">Our story</h2>
+      </div>
+      <div class="space-y-5 text-[1.1rem] md:col-span-7">
+        <p>
+          At large advisory firms, senior people often lead the sale and the overall direction of a project, while much of the day-to-day work is done by more junior teams. That model works well for many clients, but some want more direct senior involvement.
+        </p>
+        <p>
+          Samsara Ventures was founded in 2025 to offer that. After more than a decade leading M&amp;A transactions, integrations, separations and transformation programs at large advisory firms, our founder set up a firm where clients work with the same experienced advisor from the first conversation through to delivery.
+        </p>
+        <p>
+          The name comes from the idea of cycles. Over time, businesses are formed, combined, separated and renewed, and those moments of change are where we focus our work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-stone" aria-labelledby="principles-title">
+    <div class="container-site">
+      <SectionHead id="principles-title" title="How we work" intro="A few principles that guide how we work with clients." />
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        {principles.map((p) => (
+          <div class="border-t-2 border-red pt-5">
+            <h3 class="text-h3">{p.title}</h3>
+            <p class="mt-3 text-[1rem] text-ink-soft">{p.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-20">
+        <h3 class="mb-10 text-h3">Our approach</h3>
+        <ApproachFlow />
+      </div>
+    </div>
+  </section>
+
+  <section id="founder" class="section" aria-labelledby="founder-title">
+    <div class="container-site grid gap-12 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <figure class="max-w-[320px]">
+          {founder.photo ? (
+            <img src={founder.photo} alt={`Portrait of ${founder.name}, ${founder.title} of Samsara Ventures`} width="640" height="800" class="aspect-[4/5] w-full rounded-xl object-cover" loading="lazy" />
+          ) : (
+            <div class="headshot-placeholder relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-xl bg-stone" role="img" aria-label={`${founder.name}, ${founder.title}`}>
+              <span class="font-sans text-[4.5rem] font-light tracking-wide text-red">{initials}</span>
+              {site.showDrafts && <span class="absolute bottom-3 left-3 right-3 rounded bg-[#fff4d6] px-2 py-1 text-center font-sans text-xs text-[#6b4a00]">Placeholder: add photo in site.ts</span>}
+            </div>
+          )}
+          <figcaption class="mt-5">
+            <span class="block font-sans text-[1.25rem] font-medium">{founder.name}</span>
+            <span class="block font-sans text-ink-soft">{founder.title}</span>
+            {founder.linkedinUrl
+              ? <a href={founder.linkedinUrl} class="link-arrow mt-3 inline-block" target="_blank" rel="noopener">LinkedIn profile</a>
+              : site.showDrafts && <span class="mt-3 inline-block rounded bg-[#fff4d6] px-2 py-1 font-sans text-xs text-[#6b4a00]">Placeholder: LinkedIn URL</span>}
+          </figcaption>
+        </figure>
+      </div>
+      <div class="md:col-span-7 md:col-start-6">
+        <p class="kicker">Founder</p>
+        <h2 id="founder-title" class="mt-3 text-h2">{founder.name}</h2>
+        <div class="mt-6 space-y-5 text-[1.08rem]">
+          <p>
+            Arjun founded Samsara Ventures in 2025 after more than a decade in management consulting focused on mergers and acquisitions and enterprise transformation.
+          </p>
+          <p>
+            Most recently, he was a Senior Manager in PwC’s M&amp;A advisory practice in New York, where he led integrations and carve-outs across multiple functional workstreams, including standalone operating models, transition service agreement strategy and Day 1 readiness, and helped clients identify synergies and stranded costs. Before PwC, he was a Director at EY-Parthenon in New York, working in transaction strategy and execution. There he led integrations, carve-outs and separations across business and technology functions and conducted operational and IT due diligence.
+          </p>
+          <p>
+            He began his career at Deloitte Consulting, where he worked on business transformation and program management engagements for large organizations across a range of industries.
+          </p>
+          <p>
+            Since founding Samsara Ventures, his work has included value creation and cost optimization for private equity-backed businesses and go-to-market strategy for AI-enabled products. He holds a Bachelor of Arts in Economics and Finance from the University of Waterloo.
+          </p>
+        </div>
+        <ul class="mt-8 grid gap-x-8 font-sans text-[0.98rem] sm:grid-cols-2">
+          {['M&A integration and separation', 'IT and operational due diligence', 'Private equity value creation', 'Transformation and PMO leadership', 'Go-to-market and commercialization', 'Operating model design'].map((x) => (
+            <li class="border-t border-rule py-3">{x}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTABand title="Start with a conversation." text="Tell us about the transaction, separation or transformation you are working on, and we can discuss whether and how we can help." primaryLabel="Schedule a Conversation" />
+</BaseLayout>

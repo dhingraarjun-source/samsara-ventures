@@ -1,0 +1,107 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import CTABand from '@/components/CTABand.astro';
+import { site } from '@/config/site';
+import { getVisibleInsights, isLive, readingTime, formatDate, type Insight } from '@/utils/insights';
+import { articleSchema, breadcrumbSchema } from '@/utils/schema';
+import { services } from '@/data/services';
+
+export async function getStaticPaths() {
+  const articles = await getVisibleInsights();
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props as { article: Insight };
+const { Content } = await render(article);
+const live = isLive(article);
+const path = `/insights/${article.id}/`;
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Insights', href: '/insights/' },
+  { name: article.data.title, href: path },
+];
+const related = services.filter((s) => s.relatedInsights.includes(article.id));
+const others = (await getVisibleInsights()).filter((a) => a.id !== article.id).slice(0, 2);
+---
+<BaseLayout
+  title={article.data.title}
+  description={article.data.description}
+  type="article"
+  noindex={!live}
+  schema={[
+    breadcrumbSchema(crumbs),
+    articleSchema({
+      title: article.data.title,
+      description: article.data.description,
+      path,
+      datePublished: article.data.publishDate,
+      dateModified: article.data.updatedDate ?? article.data.publishDate,
+      author: article.data.author,
+    }),
+  ]}
+>
+  <article>
+    <header class="border-b border-rule bg-stone">
+      <div class="container-site pb-14 pt-10 md:pb-20 md:pt-14">
+        <Breadcrumbs crumbs={crumbs} />
+        <div class="mt-10 max-w-3xl md:mt-14">
+          <p class="kicker">{article.data.category}</p>
+          <h1 class="mt-4 text-h1">{article.data.title}</h1>
+          <p class="mt-6 text-lede text-ink-soft">{article.data.description}</p>
+          <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 font-sans text-[0.95rem] text-ink-soft">
+            <span>By <a href="/about/#founder" class="text-ink">{article.data.author}</a>, {site.founder.title}</span>
+            <span aria-hidden="true">&middot;</span>
+            {live && article.data.publishDate
+              ? <time datetime={article.data.publishDate.toISOString()}>{formatDate(article.data.publishDate)}</time>
+              : <span class="rounded-full border border-[#f0d58a] bg-[#fff4d6] px-2.5 py-0.5 text-[0.85rem] text-[#6b4a00]">Draft, not published</span>}
+            <span aria-hidden="true">&middot;</span>
+            <span>{readingTime(article.body)}</span>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-site grid gap-12 py-16 md:py-20 lg:grid-cols-12">
+      <div class="prose-site lg:col-span-8">
+        <Content />
+      </div>
+      <aside class="lg:col-span-3 lg:col-start-10" aria-label="Related">
+        <div class="lg:sticky lg:top-28">
+          {related.length > 0 && (
+            <div>
+              <h2 class="font-sans text-base font-medium">Related services</h2>
+              <ul class="rule-list mt-3 font-sans text-[0.98rem]">
+                {related.map((s) => <li><a href={s.href} class="no-underline hover:underline">{s.name}</a></li>)}
+              </ul>
+            </div>
+          )}
+          <div class="mt-10 rounded-xl bg-stone p-6">
+            <h2 class="font-sans text-[1.1rem] font-medium">Discuss this topic</h2>
+            <p class="mt-2 text-[0.98rem] text-ink-soft">Speak directly with a senior advisor about your situation.</p>
+            <a href={site.bookingUrl} class="btn btn-primary mt-5 w-full px-3 text-[0.92rem]" target="_blank" rel="noopener">Schedule a Conversation</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    {others.length > 0 && (
+      <section class="border-t border-rule" aria-labelledby="more-insights">
+        <div class="container-site py-14">
+          <h2 id="more-insights" class="text-h2">More insights</h2>
+          <ul class="mt-8 grid gap-x-12 md:grid-cols-2">
+            {others.map((a) => (
+              <li class="border-t border-rule py-6">
+                <p class="font-sans text-[0.9rem] text-red">{a.data.category}</p>
+                <a href={`/insights/${a.id}/`} class="mt-2 block font-sans text-[1.3rem] font-medium leading-snug text-ink no-underline hover:text-red">{a.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+  </article>
+
+  <CTABand />
+</BaseLayout>

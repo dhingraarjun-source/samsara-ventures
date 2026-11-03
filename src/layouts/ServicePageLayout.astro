@@ -1,0 +1,128 @@
+---
+/** Shared template for the three service detail pages. Content comes from src/data/services.ts. */
+import BaseLayout from './BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHead from '@/components/SectionHead.astro';
+import CTABand from '@/components/CTABand.astro';
+import { services, type Service } from '@/data/services';
+import { site } from '@/config/site';
+import { breadcrumbSchema, serviceSchema } from '@/utils/schema';
+import { getPublishedInsights } from '@/utils/insights';
+
+export interface Props { service: Service }
+const { service } = Astro.props;
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services/' },
+  { name: service.name, href: service.href },
+];
+const others = services.filter((s) => s.slug !== service.slug);
+const insights = (await getPublishedInsights()).filter((a) => service.relatedInsights.includes(a.id));
+---
+<BaseLayout
+  title={service.meta.title}
+  description={service.meta.description}
+  schema={[breadcrumbSchema(crumbs), serviceSchema(service.name, service.meta.description, service.href)]}
+>
+  <PageHero kicker={service.name} title={service.hero.title} lede={service.hero.lede} crumbs={crumbs}>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a href={site.bookingUrl} class="btn btn-primary" target="_blank" rel="noopener">Schedule a Conversation</a>
+      <a href="#capabilities" class="btn btn-outline">View capabilities</a>
+    </div>
+  </PageHero>
+
+  <!-- Context and client challenges -->
+  <section class="section" aria-labelledby="context">
+    <div class="container-site grid gap-12 md:grid-cols-12">
+      <div class="md:col-span-6">
+        <h2 id="context" class="text-h2">{service.context.title}</h2>
+        {service.context.paragraphs.map((p) => <p class="mt-6 text-ink-soft">{p}</p>)}
+      </div>
+      <div class="md:col-span-5 md:col-start-8">
+        <h3 class="text-h3">Challenges we are brought in to solve</h3>
+        <ul class="rule-list mt-6">
+          {service.context.challenges.map((c) => <li class="text-[1.02rem]">{c}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="section bg-stone" aria-labelledby="capabilities">
+    <div class="container-site">
+      <SectionHead id="capabilities" title="Advisory capabilities" intro="What we can help with in this area. Most engagements draw on several of these, depending on the deal or program." />
+      <div class="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {service.capabilities.map((c) => (
+          <div class="border-t-2 border-red pt-5">
+            <h3 class="text-h3">{c.title}</h3>
+            <p class="mt-3 text-[1rem] text-ink-soft">{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Deliverables and situations -->
+  <section class="section" aria-labelledby="deliverables">
+    <div class="container-site grid gap-14 md:grid-cols-2 md:gap-16">
+      <div>
+        <h2 id="deliverables" class="text-h2">Typical deliverables</h2>
+        <p class="mt-4 text-ink-soft">Depending on the scope, these may include:</p>
+        <ul class="rule-list mt-6">
+          {service.deliverables.map((d) => <li>{d}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-h2">Situations where we can help</h2>
+        <p class="mt-4 text-ink-soft">Some of the situations where clients bring us in:</p>
+        <ul class="rule-list mt-6">
+          {service.situations.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="on-dark section bg-ink text-white" aria-labelledby="approach">
+    <div class="container-site">
+      <SectionHead id="approach" title="Our approach" intro="How we typically approach this work. Every engagement is different, so the steps are adjusted to fit the situation." dark />
+      <ol class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        {service.approach.map((step, i) => (
+          <li class="border-t border-white/20 pt-6">
+            <span class="font-sans text-sm text-red-soft">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="mt-2 text-h3 text-white">{step.title}</h3>
+            <p class="mt-3 text-[1rem] text-white/75">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section class="section-tight" aria-labelledby="related">
+    <div class="container-site grid gap-12 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <h2 id="related" class="text-h2">Related services</h2>
+        <ul class="rule-list mt-6">
+          {others.map((o) => (
+            <li><a href={o.href} class="link-arrow text-[1.1rem]">{o.name}</a><p class="mt-1 text-[0.98rem] text-ink-soft">{o.summary}</p></li>
+          ))}
+        </ul>
+      </div>
+      <div class="md:col-span-6 md:col-start-7">
+        <h2 class="text-h2">Related insights</h2>
+        {insights.length > 0 ? (
+          <ul class="rule-list mt-6">
+            {insights.map((a) => (
+              <li><a href={`/insights/${a.id}/`} class="link-arrow text-[1.1rem]">{a.data.title}</a><p class="mt-1 text-[0.98rem] text-ink-soft">{a.data.description}</p></li>
+            ))}
+          </ul>
+        ) : (
+          <p class="mt-6 text-ink-soft">Articles on this topic are in preparation. In the meantime, see our <a href="/experience/">experience</a> or <a href="/contact/">get in touch</a>.</p>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+/** Understand -> Strategize -> Execute -> Deliver Value */
+export interface Props { dark?: boolean }
+const { dark = false } = Astro.props;
+const steps = [
+  { title: 'Understand', text: 'Get to know the business, the goals of the deal or program, and any constraints we need to work within.' },
+  { title: 'Strategize', text: 'Agree on priorities and a plan that both management and investors support.' },
+  { title: 'Execute', text: 'Work alongside your team to deliver the plan, keep decisions moving and deal with issues as they come up.' },
+  { title: 'Deliver Value', text: 'Track results against the plan and hand over to your team so the improvements last.' },
+];
+---
+<ol class:list={['approach grid gap-10 md:grid-cols-4 md:gap-0', dark && 'is-dark']}>
+  {steps.map((s, i) => (
+    <li class="step relative md:pr-8">
+      <div class="marker" aria-hidden="true">
+        <span class="dot">{i + 1}</span>
+        {i < steps.length - 1 && <span class="line"></span>}
+      </div>
+      <h3 class:list={['mt-6 text-h3', dark && 'text-white']}>{s.title}</h3>
+      <p class:list={['mt-3 text-[1rem]', dark ? 'text-white/75' : 'text-ink-soft']}>{s.text}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .marker { display: flex; align-items: center; }
+  .dot { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-sans); font-weight: 600; border: 2px solid var(--color-ink); background: #fff; color: var(--color-ink); }
+  .line { flex: 1; height: 2px; background: var(--color-rule); margin-left: 12px; position: relative; }
+  .line::after { content: ''; position: absolute; right: 0; top: -4px; border-left: 8px solid var(--color-rule); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .step:last-child .dot { background: var(--color-red); border-color: var(--color-red); color: #fff; }
+  .is-dark .dot { background: transparent; border-color: rgb(255 255 255 / .6); color: #fff; }
+  .is-dark .line { background: rgb(255 255 255 / .2); }
+  .is-dark .line::after { border-left-color: rgb(255 255 255 / .2); }
+  @media (max-width: 767px) { .line { display: none; } }
+</style>

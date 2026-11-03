@@ -1,0 +1,10 @@
+---
+/** Two-column section heading: title on the left, intro text on the right. */
+export interface Props { title: string; id?: string; intro?: string; dark?: boolean }
+const { title, id, intro, dark = false } = Astro.props;
+---
+<div class="mb-12 grid gap-6 md:mb-16 md:grid-cols-12 md:gap-10">
+  <h2 id={id} class:list={['text-h2 md:col-span-5', dark && 'text-white']}>{title}</h2>
+  {intro && <p class:list={['text-lede md:col-span-7', dark ? 'text-white/75' : 'text-ink-soft']}>{intro}</p>}
+  <slot />
+</div>

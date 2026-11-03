@@ -1,0 +1,158 @@
+---
+/**
+ * Interactive deal lifecycle. Content is rendered as HTML for search engines and
+ * visitors without JavaScript; the script turns it into a clickable ring.
+ */
+const stages = [
+  { name: 'Diligence', when: 'Before signing', title: 'Understand the business before you sign', stake: 'Diligence is the best chance to find operational and technology issues while they can still be reflected in price, terms or the plan.', help: ['Operational and IT due diligence', 'Standalone and separation cost estimates', 'Risks and opportunities that feed the deal model'] },
+  { name: 'Signing to close', when: 'Between signing and close', title: 'Use the time before close to plan', stake: 'Where regulations allow, the period between signing and close is a good time to prepare the integration or separation so work can start right away.', help: ['Integration or separation planning', 'Transition service agreement design', 'Governance and program office setup'] },
+  { name: 'Day 1', when: 'Close', title: 'Keep the business running smoothly', stake: 'On the first day under new ownership, payroll, systems and customer service all need to keep working, and employees need clear information.', help: ['Day 1 readiness', 'Command center and issue resolution', 'Communication plans for people and customers'] },
+  { name: 'First 100 days', when: 'Immediately after close', title: 'Get the plan moving', stake: 'The first few months set the pace for the rest of the hold period, so it helps to make key decisions early and show progress.', help: ['100-day plan execution', 'Synergy validation and early capture', 'Organization and operating model decisions'] },
+  { name: 'Value creation', when: 'The hold period', title: 'Deliver the value creation plan', stake: 'During the hold period, initiatives need clear owners, regular tracking and consistent leadership to stay on track.', help: ['Value creation planning', 'Execution PMO leadership', 'Cost, operating model and growth initiatives'] },
+  { name: 'Exit', when: 'Preparing for the next owner', title: 'Prepare for the next owner', stake: 'A business that is well documented and runs cleanly on its own is easier for buyers to evaluate.', help: ['Exit readiness', 'Sell-side diligence preparation', 'Carve-out of non-core businesses'] },
+];
+const R = 170;
+const nodes = stages.map((s, i) => {
+  const a = ((-90 + i * 60) * Math.PI) / 180;
+  return {
+    ...s,
+    x: 50 + (R / 440) * 100 * Math.cos(a),
+    y: 50 + (R / 440) * 100 * Math.sin(a),
+    side: i === 0 ? 'top' : i === 3 ? 'bottom' : i < 3 ? 'right' : 'left',
+  };
+});
+---
+<div class="lc" data-lifecycle>
+  <div class="lc-wheel" aria-hidden="true">
+    <svg class="lc-ring" viewBox="0 0 440 440">
+      <circle cx="220" cy="220" r={R} fill="none" stroke="rgb(255 255 255 / .16)" stroke-width="3" />
+      <circle class="lc-progress" cx="220" cy="220" r={R} fill="none" stroke="var(--color-red-soft)" stroke-width="5" stroke-linecap="round" transform="rotate(-90 220 220)" />
+    </svg>
+    <div class="lc-center"><span class="lc-count">1 of 6</span><span class="lc-center-name">Diligence</span></div>
+  </div>
+
+  <div class="lc-tabs" role="tablist" aria-label="Deal lifecycle stages">
+    {nodes.map((n, i) => (
+      <button type="button" role="tab" id={`lc-tab-${i}`} aria-controls={`lc-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+        class="lc-node" data-side={n.side} style={`left:${n.x}%;top:${n.y}%`}>
+        <span class="lc-dot" aria-hidden="true"></span><span class="lc-label">{n.name}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="lc-panels">
+    {stages.map((s, i) => (
+      <div role="tabpanel" id={`lc-panel-${i}`} aria-labelledby={`lc-tab-${i}`} class="lc-panel" hidden={i !== 0}>
+        <p class="lc-when">{s.when}</p>
+        <h3 class="lc-title">{s.title}</h3>
+        <p class="lc-stake">{s.stake}</p>
+        <ul class="lc-help">{s.help.map((h) => <li>{h}</li>)}</ul>
+      </div>
+    ))}
+    <div class="lc-nav">
+      <button type="button" class="lc-btn" data-step="-1">Previous</button>
+      <button type="button" class="lc-btn is-next" data-step="1">Next stage</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .lc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; align-items: center; position: relative; }
+  .lc-wheel { position: relative; width: 100%; max-width: 460px; aspect-ratio: 1; justify-self: center; grid-column: 1; grid-row: 1; }
+  .lc-tabs { position: relative; width: 100%; max-width: 460px; aspect-ratio: 1; justify-self: center; grid-column: 1; grid-row: 1; }
+  .lc-panels { grid-column: 2; grid-row: 1; background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .12); border-radius: 16px; padding: 2.4rem; min-height: 400px; display: flex; flex-direction: column; }
+  .lc-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .lc-progress { transition: stroke-dashoffset .7s cubic-bezier(.3,.7,.2,1); }
+  .lc-center { position: absolute; inset: 30%; border-radius: 50%; background: rgb(255 255 255 / .04); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .lc-count { font-family: var(--font-sans); font-size: .88rem; color: rgb(255 255 255 / .6); }
+  .lc-center-name { font-family: var(--font-sans); font-weight: 500; color: #fff; font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.15; padding: 0 .5rem; }
+  .lc-node { position: absolute; transform: translate(-50%, -50%); background: none; border: 0; padding: 0; cursor: pointer; color: rgb(255 255 255 / .72); font-family: var(--font-sans); font-weight: 500; font-size: .95rem; }
+  .lc-dot { display: block; width: 22px; height: 22px; border-radius: 50%; background: var(--color-ink); border: 3px solid rgb(255 255 255 / .45); transition: transform .25s, background-color .25s, border-color .25s; }
+  .lc-label { position: absolute; white-space: nowrap; }
+  [data-side='top'] .lc-label { bottom: 30px; left: 50%; transform: translateX(-50%); }
+  [data-side='bottom'] .lc-label { top: 30px; left: 50%; transform: translateX(-50%); }
+  [data-side='right'] .lc-label { left: 32px; top: 50%; transform: translateY(-50%); }
+  [data-side='left'] .lc-label { right: 32px; top: 50%; transform: translateY(-50%); }
+  .lc-node:hover { color: #fff; }
+  .lc-node:hover .lc-dot { border-color: #fff; }
+  .lc-node.done .lc-dot { background: var(--color-red-soft); border-color: var(--color-red-soft); transform: scale(.75); }
+  .lc-node[aria-selected='true'] { color: #fff; }
+  .lc-node[aria-selected='true'] .lc-dot { background: var(--color-red); border-color: #fff; transform: scale(1.35); }
+  .lc-node:focus-visible { outline: none; }
+  .lc-node:focus-visible .lc-dot { box-shadow: 0 0 0 4px rgb(255 255 255 / .55); }
+  .lc-when { font-family: var(--font-sans); font-weight: 500; color: var(--color-red-soft); margin: 0; }
+  .lc-title { color: #fff; font-size: 1.8rem; margin-top: .3rem; }
+  .lc-stake { margin-top: .9rem; color: rgb(255 255 255 / .8); }
+  .lc-help { margin-top: 1.4rem; }
+  .lc-help li { padding: .7rem 0 .7rem 1.6rem; border-top: 1px solid rgb(255 255 255 / .12); position: relative; }
+  .lc-help li::before { content: ''; position: absolute; left: 0; top: 1.25rem; width: 9px; height: 9px; border-radius: 50%; background: var(--color-red-soft); }
+  .lc-nav { margin-top: auto; padding-top: 1.6rem; display: flex; gap: .75rem; }
+  .lc-btn { font-family: var(--font-sans); font-weight: 600; font-size: .95rem; border-radius: 999px; padding: .65rem 1.3rem; border: 1.5px solid rgb(255 255 255 / .5); color: #fff; cursor: pointer; }
+  .lc-btn:hover { border-color: #fff; }
+  .lc-btn.is-next { background: var(--color-red); border-color: var(--color-red); }
+  .lc-panel.swap > * { animation: lc-in .35s ease both; }
+  @keyframes lc-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 900px) {
+    .lc { grid-template-columns: 1fr; gap: 2.5rem; }
+    .lc-wheel, .lc-tabs { max-width: 320px; }
+    .lc-panels { grid-column: 1; grid-row: 2; padding: 1.75rem 1.4rem; min-height: 0; }
+    .lc-label { font-size: .82rem; }
+  }
+  @media (max-width: 420px) { .lc-wheel, .lc-tabs { max-width: 250px; } [data-side='left'] .lc-label, [data-side='right'] .lc-label { white-space: normal; width: 64px; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-lifecycle]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role=tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[role=tabpanel]'));
+    const prog = root.querySelector<SVGCircleElement>('.lc-progress')!;
+    const count = root.querySelector('.lc-count')!;
+    const centerName = root.querySelector('.lc-center-name')!;
+    const C = 2 * Math.PI * 170;
+    prog.style.strokeDasharray = String(C);
+    let current = 0;
+    let timer: number | undefined;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(i: number, focus = false) {
+      current = (i + tabs.length) % tabs.length;
+      tabs.forEach((t, j) => {
+        t.setAttribute('aria-selected', String(j === current));
+        t.tabIndex = j === current ? 0 : -1;
+        t.classList.toggle('done', j < current);
+      });
+      panels.forEach((p, j) => { p.hidden = j !== current; });
+      const panel = panels[current];
+      panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap');
+      prog.style.strokeDashoffset = String(C * (1 - (current === 0 ? 0.02 : current / 6)));
+      count.textContent = `${current + 1} of ${tabs.length}`;
+      centerName.textContent = tabs[current].textContent?.trim() ?? '';
+      if (focus) tabs[current].focus();
+    }
+    const stop = () => { if (timer) { clearInterval(timer); timer = undefined; } };
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => { stop(); show(i); });
+      t.addEventListener('keydown', (e) => {
+        if (['ArrowRight', 'ArrowDown'].includes(e.key)) { e.preventDefault(); stop(); show(current + 1, true); }
+        if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); stop(); show(current - 1, true); }
+        if (e.key === 'Home') { e.preventDefault(); stop(); show(0, true); }
+        if (e.key === 'End') { e.preventDefault(); stop(); show(tabs.length - 1, true); }
+      });
+    });
+    root.querySelectorAll<HTMLButtonElement>('.lc-btn').forEach((b) =>
+      b.addEventListener('click', () => { stop(); show(current + Number(b.dataset.step)); }),
+    );
+    show(0);
+
+    if (!reduce && 'IntersectionObserver' in window) {
+      let started = false;
+      new IntersectionObserver((entries) => entries.forEach((e) => {
+        if (e.isIntersecting && !started) { started = true; timer = window.setInterval(() => show(current + 1), 6000); }
+        if (!e.isIntersecting) stop();
+      }), { threshold: 0.5 }).observe(root);
+      root.addEventListener('pointerenter', stop);
+      root.addEventListener('focusin', stop);
+    }
+  });
+</script>

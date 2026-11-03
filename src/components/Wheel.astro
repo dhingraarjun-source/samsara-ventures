@@ -1,0 +1,41 @@
+---
+/**
+ * The Samsara wheel, drawn as clean vector shapes so it stays perfectly round
+ * when it turns. Proportions match the logo. The outer ring and spokes can spin;
+ * the inner "S" never moves.
+ */
+export interface Props {
+  class?: string;
+  spin?: boolean;
+  color?: string;
+}
+const { class: className = '', spin = false, color = 'currentColor' } = Astro.props;
+const spokes = Array.from({ length: 8 }, (_, k) => {
+  const a = (k * 45 * Math.PI) / 180;
+  return {
+    x1: (280 + 124 * Math.cos(a)).toFixed(2),
+    y1: (280 + 124 * Math.sin(a)).toFixed(2),
+    x2: (280 + 237 * Math.cos(a)).toFixed(2),
+    y2: (280 + 237 * Math.sin(a)).toFixed(2),
+  };
+});
+---
+<svg class:list={['wheel', className, { 'wheel-spin': spin }]} viewBox="0 0 560 560" aria-hidden="true" focusable="false">
+  <g class="wheel-turn" fill="none" stroke={color}>
+    <circle cx="280" cy="280" r="266.5" stroke-width="19" />
+    <circle cx="280" cy="280" r="237" stroke-width="18" />
+    <g stroke-width="19.5">
+      {spokes.map((s) => <line x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} />)}
+    </g>
+  </g>
+  <circle cx="280" cy="280" r="124" fill="none" stroke={color} stroke-width="24" />
+  <path d="M180 200 C 184 250, 222 266, 284 275 C 348 284, 382 296, 385 343" fill="none" stroke={color} stroke-width="21" />
+</svg>
+
+<style>
+  .wheel-turn { transform-box: view-box; transform-origin: 280px 280px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .wheel-spin .wheel-turn { animation: wheel-rotate 120s linear infinite; }
+  }
+  @keyframes wheel-rotate { to { transform: rotate(360deg); } }
+</style>

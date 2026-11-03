@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@import "@fontsource-variable/jost";
+@import "@fontsource-variable/source-serif-4";
+@import "@fontsource-variable/source-serif-4/wght-italic.css";
+
+/* ------------------------------------------------------------------
+   Design tokens. Change brand colors and type here; every page uses them.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-red: #cc1306;
+  --color-red-deep: #a30f05;
+  --color-red-soft: #ff7a6e;
+  --color-maroon: #6e120b;
+  --color-ink: #231b1a;
+  --color-ink-soft: #5a4d4b;
+  --color-ink-muted: #7d706e;
+  --color-stone: #f7f2f0;
+  --color-rule: #e6dad7;
+  --color-paper: #ffffff;
+
+  --font-sans: "Jost Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Source Serif 4 Variable", Georgia, serif;
+
+  --text-display: clamp(2.6rem, 5.4vw, 4.6rem);
+  --text-display--line-height: 1.04;
+  --text-h1: clamp(2.3rem, 4.4vw, 3.6rem);
+  --text-h1--line-height: 1.08;
+  --text-h2: clamp(1.75rem, 3vw, 2.45rem);
+  --text-h2--line-height: 1.12;
+  --text-h3: 1.3rem;
+  --text-h3--line-height: 1.25;
+  --text-lede: clamp(1.15rem, 1.6vw, 1.3rem);
+  --text-lede--line-height: 1.6;
+
+  --container-site: 1160px;
+  --container-prose: 40rem;
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    @apply bg-paper text-ink font-serif antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  h1, h2, h3, h4 { @apply font-sans text-ink; font-weight: 500; letter-spacing: -0.02em; line-height: 1.22; }
+  h3, h4 { letter-spacing: -0.01em; }
+  a { @apply text-red; text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--color-red); outline-offset: 3px; border-radius: 2px; }
+  .on-dark :focus-visible, .on-red :focus-visible { outline-color: #fff; }
+  [id] { scroll-margin-top: 96px; }
+  ::selection { background: #f5c7c2; color: var(--color-ink); }
+}
+
+/* ------------------------------------------------------------------
+   Reusable pieces
+   ------------------------------------------------------------------ */
+@layer components {
+  .container-site { @apply mx-auto w-full px-6 md:px-8; max-width: var(--container-site); }
+  .section { @apply py-20 md:py-28; }
+  .section-tight { @apply py-16 md:py-20; }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-sans font-semibold no-underline;
+    padding: 0.85rem 1.6rem; font-size: 1rem; line-height: 1.2;
+    transition: background-color .2s, color .2s, border-color .2s;
+  }
+  .btn-primary { @apply bg-red text-white; }
+  .btn-primary:hover { @apply bg-red-deep; }
+  .btn-light { @apply bg-white text-red; }
+  .btn-light:hover { @apply bg-ink text-white; }
+  .btn-outline-light { @apply text-white; border: 1.5px solid rgb(255 255 255 / .75); }
+  .btn-outline-light:hover { @apply bg-white text-red; }
+  .btn-outline { @apply text-ink; border: 1.5px solid var(--color-ink); }
+  .btn-outline:hover { @apply bg-ink text-white; }
+
+  .link-arrow { @apply font-sans font-medium text-red no-underline; }
+  .link-arrow:hover { @apply underline; }
+
+  .kicker { @apply font-sans font-medium text-red; font-size: 0.98rem; }
+
+  .rule-list > li { @apply border-t border-rule py-3; }
+  .rule-list > li:last-child { @apply border-b; }
+
+  /* Long-form article and policy text */
+  .prose-site { max-width: var(--container-prose); font-size: 1.1rem; line-height: 1.75; }
+  .prose-site > * + * { margin-top: 1.25em; }
+  .prose-site h2 { @apply text-h2; font-size: clamp(1.5rem, 2.4vw, 1.9rem); margin-top: 2.2em; }
+  .prose-site h3 { @apply text-h3; margin-top: 1.8em; }
+  .prose-site h2 + *, .prose-site h3 + * { margin-top: 0.6em; }
+  .prose-site ul, .prose-site ol { padding-left: 1.2em; }
+  .prose-site ul { list-style: disc; }
+  .prose-site ol { list-style: decimal; }
+  .prose-site li + li { margin-top: 0.45em; }
+  .prose-site li::marker { color: var(--color-red); }
+  .prose-site strong { font-weight: 600; }
+  .prose-site blockquote { border-left: 3px solid var(--color-red); padding-left: 1.2em; color: var(--color-ink-soft); font-style: italic; }
+  .prose-site a { text-decoration: underline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

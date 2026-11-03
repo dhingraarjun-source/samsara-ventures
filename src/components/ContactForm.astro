@@ -1,0 +1,156 @@
+---
+/**
+ * Contact form. Submissions are sent to the Formspree endpoint set in
+ * src/config/site.ts (or PUBLIC_FORM_ENDPOINT). If no endpoint is set,
+ * the form is not shown and visitors see the email address instead.
+ */
+import { site } from '@/config/site';
+const areas = [
+  'Due diligence',
+  'M&A integration',
+  'Carve-out or separation',
+  'Value creation and transformation',
+  'Growth and commercial strategy',
+  'Something else',
+];
+---
+{site.formEndpoint ? (
+  <form id="contact-form" class="contact-form" action={site.formEndpoint} method="POST" novalidate data-endpoint={site.formEndpoint}>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div class="field">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="cf-name-err" />
+        <p id="cf-name-err" class="err" hidden>Enter your name.</p>
+      </div>
+      <div class="field">
+        <label for="cf-company">Company</label>
+        <input id="cf-company" name="company" type="text" autocomplete="organization" required maxlength="160" aria-describedby="cf-company-err" />
+        <p id="cf-company-err" class="err" hidden>Enter your company name.</p>
+      </div>
+    </div>
+    <div class="field">
+      <label for="cf-email">Work email</label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200" aria-describedby="cf-email-err" />
+      <p id="cf-email-err" class="err" hidden>Enter a valid email address so we can reply.</p>
+    </div>
+    <div class="field">
+      <label for="cf-area">Area of interest</label>
+      <select id="cf-area" name="area_of_interest" required aria-describedby="cf-area-err">
+        <option value="">Select one</option>
+        {areas.map((a) => <option>{a}</option>)}
+      </select>
+      <p id="cf-area-err" class="err" hidden>Choose the closest area.</p>
+    </div>
+    <div class="field">
+      <label for="cf-message">Message</label>
+      <textarea id="cf-message" name="message" rows="6" required minlength="20" maxlength="5000" aria-describedby="cf-message-hint cf-message-err"></textarea>
+      <p id="cf-message-hint" class="hint">A few lines on the situation and what you are looking for. Please do not include confidential deal information.</p>
+      <p id="cf-message-err" class="err" hidden>Add a little more detail (at least 20 characters).</p>
+    </div>
+
+    <!-- Spam protection: hidden honeypot field. Formspree discards submissions that fill it in. -->
+    <div class="hp" aria-hidden="true">
+      <label for="cf-gotcha">Leave this field empty</label>
+      <input id="cf-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <p class="mt-2 font-sans text-[0.88rem] text-ink-muted">
+      We use your details only to respond to your inquiry. See our <a href="/privacy/">privacy notice</a>.
+    </p>
+    <button type="submit" class="btn btn-primary mt-6">Send message</button>
+    <div class="status mt-5 font-sans" role="status" aria-live="polite"></div>
+  </form>
+) : (
+  <div class="rounded-xl border border-rule p-8">
+    <p class="text-lede">Email us at <a href={`mailto:${site.email}`}>{site.email}</a> and we will respond directly.</p>
+  </div>
+)}
+
+<style>
+  .field { margin-top: 1.25rem; }
+  .field:first-child, .grid .field { margin-top: 0; }
+  .grid + .field { margin-top: 1.25rem; }
+  label { display: block; font-family: var(--font-sans); font-weight: 500; font-size: .98rem; margin-bottom: .4rem; }
+  input, select, textarea {
+    width: 100%; font: inherit; font-size: 1rem; color: var(--color-ink); background: #fff;
+    border: 1.5px solid var(--color-rule); border-radius: 8px; padding: .75rem .9rem; transition: border-color .15s, box-shadow .15s;
+  }
+  textarea { resize: vertical; min-height: 9rem; }
+  input:hover, select:hover, textarea:hover { border-color: #cdbdb9; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--color-ink); box-shadow: 0 0 0 3px rgb(204 19 6 / .18); }
+  [aria-invalid='true'] { border-color: var(--color-red) !important; }
+  .hint { font-size: .9rem; color: var(--color-ink-muted); margin-top: .4rem; }
+  .err { font-family: var(--font-sans); font-size: .9rem; color: var(--color-red-deep); margin-top: .4rem; }
+  .hp { position: absolute !important; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .status.ok { color: #1f6b3a; }
+  .status.bad { color: var(--color-red-deep); }
+  .sent { padding: 2rem; border-radius: 12px; background: var(--color-stone); }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector<HTMLElement>('.status')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const endpoint = form.dataset.endpoint!;
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    const rules: Record<string, (v: string) => boolean> = {
+      name: (v) => v.length > 0,
+      company: (v) => v.length > 0,
+      email: (v) => emailRe.test(v),
+      area_of_interest: (v) => v.length > 0,
+      message: (v) => v.length >= 20,
+    };
+
+    function validate(): boolean {
+      let first: HTMLElement | null = null;
+      for (const [name, ok] of Object.entries(rules)) {
+        const el = form!.elements.namedItem(name) as HTMLInputElement;
+        const valid = ok(el.value.trim());
+        el.setAttribute('aria-invalid', String(!valid));
+        const err = document.getElementById(`${el.id}-err`);
+        if (err) err.hidden = valid;
+        if (!valid && !first) first = el;
+      }
+      first?.focus();
+      return !first;
+    }
+
+    form.addEventListener('input', (e) => {
+      const el = e.target as HTMLInputElement;
+      if (el.getAttribute('aria-invalid') === 'true' && rules[el.name]?.(el.value.trim())) {
+        el.setAttribute('aria-invalid', 'false');
+        const err = document.getElementById(`${el.id}-err`);
+        if (err) err.hidden = true;
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.className = 'status mt-5 font-sans';
+      status.textContent = '';
+      if (!validate()) return;
+
+      const data = new FormData(form);
+      data.append('_subject', `Website inquiry: ${data.get('area_of_interest')} (${data.get('company')})`);
+      button.disabled = true;
+      button.textContent = 'Sending...';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        const wrap = document.createElement('div');
+        wrap.className = 'sent';
+        wrap.setAttribute('role', 'status');
+        wrap.innerHTML = '<h2 class="text-h3">Message sent</h2><p class="mt-2 text-ink-soft"></p>';
+        wrap.querySelector('p')!.textContent = 'Thank you. We will reply to ' + String(data.get('email')) + ' shortly.';
+        form.replaceWith(wrap);
+      } catch {
+        button.disabled = false;
+        button.textContent = 'Send message';
+        status.classList.add('bad');
+        status.textContent = 'Your message could not be sent. Please try again, or email info@thesamsaraventures.com directly.';
+      }
+    });
+  }
+</script>

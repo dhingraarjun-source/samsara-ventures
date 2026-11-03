@@ -1,0 +1,118 @@
+---
+import { mainNav, site } from '@/config/site';
+import Wheel from './Wheel.astro';
+
+export interface Props {
+  /** "overlay" sits transparently on the red home hero until the visitor scrolls. */
+  variant?: 'overlay' | 'solid';
+}
+const { variant = 'solid' } = Astro.props;
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header id="site-header" class:list={['site-header', variant === 'overlay' ? 'is-overlay' : 'is-solid']} data-variant={variant}>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="container-site flex items-center justify-between gap-6">
+    <a href="/" class="brand" aria-label={`${site.name} home`}>
+      <Wheel class="brand-mark" />
+      <span class="brand-word">SAMSARA<br />VENTURES</span>
+    </a>
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-8">
+        {mainNav.map((item) => (
+          <li>
+            <a href={item.href} class="nav-link" aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="/contact/" class="btn header-cta hidden sm:inline-flex">Speak With an Advisor</a>
+      <button type="button" class="menu-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Open menu</span>
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu lg:hidden" hidden>
+    <nav aria-label="Mobile" class="container-site">
+      <ul>
+        <li><a href="/" class="mobile-link">Home</a></li>
+        {mainNav.map((item) => (
+          <li><a href={item.href} class="mobile-link" aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+      <a href={site.bookingUrl} class="btn btn-primary mt-6 w-full" target="_blank" rel="noopener">Schedule a Conversation</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; transition: background-color .25s, box-shadow .25s, padding .25s; padding: 1rem 0; }
+  .site-header.is-solid { background: #fff; box-shadow: 0 1px 0 var(--color-rule); }
+  .site-header.is-overlay { position: fixed; left: 0; right: 0; background: transparent; padding: 1.4rem 0; }
+  .site-header.is-overlay.scrolled { background: var(--color-red); padding: 0.85rem 0; box-shadow: 0 8px 24px -16px rgb(60 0 0 / .6); }
+  .site-header.menu-open { background: #fff !important; box-shadow: 0 1px 0 var(--color-rule); }
+
+  .skip-link { position: absolute; left: 1rem; top: -100px; background: var(--color-ink); color: #fff; padding: .6rem 1rem; border-radius: 6px; z-index: 60; font-family: var(--font-sans); }
+  .skip-link:focus { top: .6rem; }
+
+  .brand { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: var(--color-red); }
+  .brand :global(.brand-mark) { width: 38px; height: 38px; flex: none; }
+  .brand-word { font-family: var(--font-sans); font-weight: 500; letter-spacing: .2em; font-size: .9rem; line-height: 1.15; color: var(--color-ink); }
+
+  .nav-link { font-family: var(--font-sans); font-weight: 500; font-size: 1rem; color: var(--color-ink); text-decoration: none; padding: .35rem 0; border-bottom: 2px solid transparent; transition: border-color .2s, color .2s; }
+  .nav-link:hover { border-bottom-color: currentColor; }
+  .nav-link[aria-current='page'] { border-bottom-color: var(--color-red); }
+
+  .header-cta { background: var(--color-red); color: #fff; padding: .65rem 1.25rem; font-size: .95rem; }
+  .header-cta:hover { background: var(--color-red-deep); }
+
+  /* Overlay (home hero) colors */
+  .is-overlay:not(.menu-open) .brand, .is-overlay:not(.menu-open) .brand-word, .is-overlay:not(.menu-open) .nav-link { color: #fff; }
+  .is-overlay:not(.menu-open) .nav-link[aria-current='page'] { border-bottom-color: #fff; }
+  .is-overlay:not(.menu-open) .header-cta { background: #fff; color: var(--color-red); }
+  .is-overlay:not(.menu-open) .header-cta:hover { background: var(--color-ink); color: #fff; }
+  .is-overlay:not(.menu-open) .bar { background: #fff; }
+  .is-overlay :focus-visible { outline-color: #fff; }
+  .menu-open :focus-visible { outline-color: var(--color-red); }
+
+  @media (min-width: 1024px) { .menu-toggle { display: none !important; } }
+  .menu-toggle { width: 44px; height: 44px; display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; border-radius: 8px; }
+  .bar { display: block; width: 22px; height: 2px; background: var(--color-ink); transition: transform .2s, opacity .2s; }
+  .menu-toggle[aria-expanded='true'] .bar:nth-child(2) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded='true'] .bar:nth-child(3) { opacity: 0; }
+  .menu-toggle[aria-expanded='true'] .bar:nth-child(4) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu { background: #fff; border-top: 1px solid var(--color-rule); padding: 1rem 0 1.5rem; max-height: calc(100vh - 70px); overflow-y: auto; }
+  .mobile-link { display: block; padding: .9rem 0; border-bottom: 1px solid var(--color-rule); font-family: var(--font-sans); font-size: 1.15rem; color: var(--color-ink); text-decoration: none; }
+  .mobile-link[aria-current='page'] { color: var(--color-red); }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  const toggle = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (header && header.dataset.variant === 'overlay') {
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  function setMenu(open: boolean) {
+    if (!toggle || !menu || !header) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.querySelector('.sr-only')!.textContent = open ? 'Close menu' : 'Open menu';
+    menu.hidden = !open;
+    header.classList.toggle('menu-open', open);
+  }
+  toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { setMenu(false); toggle.focus(); }
+  });
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+</script>

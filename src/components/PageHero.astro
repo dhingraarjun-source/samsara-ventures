@@ -1,0 +1,31 @@
+---
+/** Hero used on every inner page: breadcrumb, H1, lede and an optional action row. */
+import Breadcrumbs from './Breadcrumbs.astro';
+import Wheel from './Wheel.astro';
+import type { Crumb } from '@/utils/schema';
+
+export interface Props {
+  title: string;
+  lede?: string;
+  kicker?: string;
+  crumbs?: Crumb[];
+}
+const { title, lede, kicker, crumbs } = Astro.props;
+---
+<section class="page-hero relative overflow-hidden border-b border-rule bg-stone">
+  <Wheel class="hero-mark pointer-events-none absolute text-red" />
+  <div class="container-site relative pb-16 pt-10 md:pb-24 md:pt-14">
+    {crumbs && <Breadcrumbs crumbs={crumbs} />}
+    <div class="mt-10 max-w-3xl md:mt-14">
+      {kicker && <p class="kicker mb-4">{kicker}</p>}
+      <h1 class="text-h1">{title}</h1>
+      {lede && <p class="mt-6 max-w-2xl text-lede text-ink-soft">{lede}</p>}
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-hero :global(.hero-mark) { width: 520px; height: 520px; right: -160px; top: 50%; transform: translateY(-50%); opacity: .07; }
+  @media (max-width: 768px) { .page-hero :global(.hero-mark) { width: 320px; height: 320px; right: -140px; } }
+</style>

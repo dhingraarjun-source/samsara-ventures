@@ -1,0 +1,57 @@
+---
+import { site } from '@/config/site';
+import { services } from '@/data/services';
+import Wheel from './Wheel.astro';
+const year = new Date().getFullYear();
+---
+<footer class="on-dark bg-ink text-white/80">
+  <div class="container-site grid gap-12 py-16 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <a href="/" class="inline-flex items-center gap-3 text-white no-underline" aria-label={`${site.name} home`}>
+        <Wheel class="h-10 w-10" />
+        <span class="font-sans text-[0.9rem] font-medium leading-tight tracking-[0.2em]">SAMSARA<br />VENTURES</span>
+      </a>
+      <p class="mt-6 max-w-xs text-[0.98rem] leading-relaxed text-white/70">
+        M&amp;A, value creation and transformation advisory for private equity firms and corporate leaders.
+      </p>
+    </div>
+
+    <nav aria-label="Services" class="md:col-span-3">
+      <h2 class="font-sans text-base font-medium text-white">Services</h2>
+      <ul class="mt-4 space-y-2.5 font-sans text-[0.96rem]">
+        <li><a href="/services/" class="footer-link">All services</a></li>
+        {services.map((s) => <li><a href={s.href} class="footer-link">{s.name}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label="Firm" class="md:col-span-2">
+      <h2 class="font-sans text-base font-medium text-white">Firm</h2>
+      <ul class="mt-4 space-y-2.5 font-sans text-[0.96rem]">
+        <li><a href="/about/" class="footer-link">About</a></li>
+        <li><a href="/experience/" class="footer-link">Experience</a></li>
+        <li><a href="/insights/" class="footer-link">Insights</a></li>
+        <li><a href="/contact/" class="footer-link">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="md:col-span-3">
+      <h2 class="font-sans text-base font-medium text-white">Contact</h2>
+      <ul class="mt-4 space-y-2.5 font-sans text-[0.96rem]">
+        <li><a href={`mailto:${site.email}`} class="footer-link">{site.email}</a></li>
+        <li><a href={site.bookingUrl} class="footer-link" target="_blank" rel="noopener">Schedule a conversation</a></li>
+        <li class="text-white/70">{site.location}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="container-site flex flex-col gap-2 py-6 font-sans text-sm text-white/60 sm:flex-row sm:justify-between">
+      <p>&copy; {year} {site.legalName}. All rights reserved.</p>
+      <p><a href="/privacy/" class="footer-link">Privacy</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-link { color: rgb(255 255 255 / .78); text-decoration: none; }
+  .footer-link:hover { color: #fff; text-decoration: underline; }
+</style>
