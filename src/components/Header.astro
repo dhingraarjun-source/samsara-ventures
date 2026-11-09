@@ -54,7 +54,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .site-header { position: sticky; top: 0; z-index: 50; transition: background-color .25s, box-shadow .25s, padding .25s; padding: 1rem 0; }
   .site-header.is-solid { background: #fff; box-shadow: 0 1px 0 var(--color-rule); }
   .site-header.is-overlay { position: fixed; left: 0; right: 0; background: transparent; padding: 1.4rem 0; }
-  .site-header.is-overlay.scrolled { background: var(--color-red); padding: 0.85rem 0; box-shadow: 0 8px 24px -16px rgb(60 0 0 / .6); }
+  .site-header.is-overlay.scrolled { background: var(--color-red-field); padding: 0.85rem 0; box-shadow: 0 8px 24px -16px rgb(60 0 0 / .6); }
   .site-header.menu-open { background: #fff !important; box-shadow: 0 1px 0 var(--color-rule); }
 
   .skip-link { position: absolute; left: 1rem; top: -100px; background: var(--color-ink); color: #fff; padding: .6rem 1rem; border-radius: 6px; z-index: 60; font-family: var(--font-sans); }
@@ -74,7 +74,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   /* Overlay (home hero) colors */
   .is-overlay:not(.menu-open) .brand, .is-overlay:not(.menu-open) .brand-word, .is-overlay:not(.menu-open) .nav-link { color: #fff; }
   .is-overlay:not(.menu-open) .nav-link[aria-current='page'] { border-bottom-color: #fff; }
-  .is-overlay:not(.menu-open) .header-cta { background: #fff; color: var(--color-red); }
+  .is-overlay:not(.menu-open) .header-cta { background: #fff; color: var(--color-red-field); }
   .is-overlay:not(.menu-open) .header-cta:hover { background: var(--color-ink); color: #fff; }
   .is-overlay:not(.menu-open) .bar { background: #fff; }
   .is-overlay :focus-visible { outline-color: #fff; }

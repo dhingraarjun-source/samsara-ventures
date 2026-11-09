@@ -8,6 +8,8 @@
    ------------------------------------------------------------------ */
 @theme {
   --color-red: #cc1306;
+  /* Softer deep red for large background areas (hero, CTA band, scrolled menu bar). */
+  --color-red-field: #9e2a22;
   --color-red-deep: #a30f05;
   --color-red-soft: #ff7a6e;
   --color-maroon: #6e120b;
@@ -71,10 +73,10 @@
   }
   .btn-primary { @apply bg-red text-white; }
   .btn-primary:hover { @apply bg-red-deep; }
-  .btn-light { @apply bg-white text-red; }
+  .btn-light { @apply bg-white text-red-field; }
   .btn-light:hover { @apply bg-ink text-white; }
   .btn-outline-light { @apply text-white; border: 1.5px solid rgb(255 255 255 / .75); }
-  .btn-outline-light:hover { @apply bg-white text-red; }
+  .btn-outline-light:hover { @apply bg-white text-red-field; }
   .btn-outline { @apply text-ink; border: 1.5px solid var(--color-ink); }
   .btn-outline:hover { @apply bg-ink text-white; }
 
