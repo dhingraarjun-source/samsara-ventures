@@ -3,7 +3,7 @@
  *
  * context:
  *   'samsara' = work contracted through Samsara Ventures
- *   'prior'   = work the founder led at a previous firm (labelled as such on the page)
+ *   'prior'   = work done before Samsara Ventures, at a previous firm (labelled as such on the page)
  *
  * confirm: a note shown only in draft preview mode (PUBLIC_SHOW_DRAFTS=true)
  * listing what needs your confirmation before the example is relied on publicly.

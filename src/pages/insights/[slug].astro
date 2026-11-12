@@ -55,7 +55,7 @@ const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : undefined;
           <h1 class="mt-4 text-h1">{article.data.title}</h1>
           <p class="mt-6 text-lede text-ink-soft">{article.data.description}</p>
           <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 font-sans text-[0.95rem] text-ink-soft">
-            <span>By <a href="/about/#founder" class="text-ink">{article.data.author}</a>, {site.founder.title}</span>
+            <span>By <a href="/about/" class="text-ink">{article.data.author}</a></span>
             <span aria-hidden="true">&middot;</span>
             {live && article.data.publishDate
               ? <time datetime={article.data.publishDate.toISOString()}>{formatDate(article.data.publishDate)}</time>

@@ -4,16 +4,35 @@ import PageHero from '@/components/PageHero.astro';
 import SectionHead from '@/components/SectionHead.astro';
 import ApproachFlow from '@/components/ApproachFlow.astro';
 import CTABand from '@/components/CTABand.astro';
-import { site } from '@/config/site';
-import { breadcrumbSchema, personSchema } from '@/utils/schema';
+import { breadcrumbSchema } from '@/utils/schema';
 
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'About', href: '/about/' }];
-const { founder } = site;
-const initials = founder.name.split(' ').map((p) => p[0]).join('');
+
+/** The kinds of work behind the firm, described generally. */
+const experience = [
+  {
+    title: 'Transactions',
+    items: [
+      'Operational and IT due diligence for private equity and corporate buyers',
+      'Integration management offices and Day 1 readiness',
+      'Carve-outs, spin-offs and transition service agreements',
+      'Synergy and stranded cost analysis',
+    ],
+  },
+  {
+    title: 'Transformation and growth',
+    items: [
+      'Value creation and cost optimization for private equity-backed businesses',
+      'Large business and technology transformation programs',
+      'Operating model design',
+      'Go-to-market strategy for new and AI-enabled products',
+    ],
+  },
+];
 
 /** How an engagement works in practice. */
 const principles = [
-  { title: 'One senior lead, start to finish', text: 'Arjun scopes every engagement and stays on it through delivery. You do not get handed to a team you have not met.' },
+  { title: 'One senior lead, start to finish', text: 'A senior advisor scopes every engagement and stays on it through delivery. You are not handed to a team you have not met.' },
   { title: 'Scoped around your decision', text: 'We start from the investment thesis or the decision in front of you, then agree the outputs and timing up front so effort goes where it matters.' },
   { title: 'Sized to the situation', text: 'Some work is a focused project with a clear end point. Some is program leadership or embedded support inside the business for as long as it is needed.' },
   { title: 'Built to hand over', text: 'Plans, models and governance are designed for your team to keep running after the engagement ends.' },
@@ -21,9 +40,9 @@ const principles = [
 ];
 ---
 <BaseLayout
-  title="About the Firm and Founder"
-  description="Why Samsara Ventures was founded, how the firm works, and the background of founder Arjun Dhingra across M&A, integration, carve-outs and transformation."
-  schema={[breadcrumbSchema(crumbs), personSchema()]}
+  title="About the Firm"
+  description="Why Samsara Ventures was founded, the M&A and transformation experience behind the firm, and how engagements work."
+  schema={[breadcrumbSchema(crumbs)]}
 >
   <PageHero
     kicker="About"
@@ -48,54 +67,22 @@ const principles = [
     </div>
   </section>
 
-  <section id="founder" class="section border-t border-rule" aria-labelledby="founder-title">
-    <div class="container-site grid gap-12 md:grid-cols-12">
-      <div class="md:col-span-4">
-        <figure class="max-w-[320px] md:sticky md:top-28">
-          {founder.photo ? (
-            <img src={founder.photo} alt={`Portrait of ${founder.name}, ${founder.title} of Samsara Ventures`} width="640" height="800" class="aspect-[4/5] w-full rounded-xl object-cover" loading="lazy" />
-          ) : (
-            <div class="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-xl bg-stone" role="img" aria-label={`${founder.name}, ${founder.title}`}>
-              <span class="font-sans text-[4.5rem] font-light tracking-wide text-red">{initials}</span>
-              {site.showDrafts && <span class="absolute bottom-3 left-3 right-3 rounded bg-[#fff4d6] px-2 py-1 text-center font-sans text-xs text-[#6b4a00]">Placeholder: add photo in site.ts</span>}
-            </div>
-          )}
-          <figcaption class="mt-5">
-            <span class="block font-sans text-[1.25rem] font-medium">{founder.name}</span>
-            <span class="block font-sans text-ink-soft">{founder.title}</span>
-            {founder.linkedinUrl
-              ? <a href={founder.linkedinUrl} class="link-arrow mt-3 inline-block" target="_blank" rel="noopener">LinkedIn profile</a>
-              : site.showDrafts && <span class="mt-3 inline-block rounded bg-[#fff4d6] px-2 py-1 font-sans text-xs text-[#6b4a00]">Placeholder: LinkedIn URL</span>}
-          </figcaption>
-        </figure>
+  <section id="experience-overview" class="section border-t border-rule" aria-labelledby="experience-title">
+    <div class="container-site">
+      <SectionHead id="experience-title" title="The experience behind the firm" intro="Samsara Ventures draws on more than a decade of M&A and transformation work at global advisory firms, for private equity sponsors and large corporations." />
+      <div class="grid gap-12 md:grid-cols-2">
+        {experience.map((group) => (
+          <div class="border-t-2 border-red pt-5">
+            <h3 class="text-h3">{group.title}</h3>
+            <ul class="rule-list mt-4 text-[1.02rem]">
+              {group.items.map((i) => <li>{i}</li>)}
+            </ul>
+          </div>
+        ))}
       </div>
-      <div class="md:col-span-7 md:col-start-6">
-        <p class="kicker">Who you will work with</p>
-        <h2 id="founder-title" class="mt-3 text-h2">{founder.name}</h2>
-        <div class="mt-6 space-y-5 text-[1.08rem]">
-          <p>
-            Arjun founded Samsara Ventures in 2025 after more than a decade in management consulting focused on mergers and acquisitions and enterprise transformation.
-          </p>
-          <p>
-            Most recently, he was a Senior Manager in PwC’s M&amp;A advisory practice in New York, where he led integrations and carve-outs across multiple functional workstreams, including standalone operating models, transition service agreement strategy and Day 1 readiness, and helped clients identify synergies and stranded costs. Before PwC, he was a Director at EY-Parthenon in New York, working in transaction strategy and execution. There he led integrations, carve-outs and separations across business and technology functions and conducted operational and IT due diligence.
-          </p>
-          <p>
-            He began his career at Deloitte Consulting, where he worked on business transformation and program management engagements for large organizations across a range of industries.
-          </p>
-          <p>
-            Since founding Samsara Ventures, his work has included value creation and cost optimization for private equity-backed businesses and go-to-market strategy for AI-enabled products. He holds a Bachelor of Arts in Economics and Finance from the University of Waterloo.
-          </p>
-        </div>
-        <ul class="mt-8 grid gap-x-8 font-sans text-[0.98rem] sm:grid-cols-2">
-          {['M&A integration and separation', 'IT and operational due diligence', 'Private equity value creation', 'Transformation and PMO leadership', 'Go-to-market and commercialization', 'Operating model design'].map((x) => (
-            <li class="border-t border-rule py-3">{x}</li>
-          ))}
-        </ul>
-
-        <p class="mt-8">
-          <a href="/experience/" class="link-arrow">See examples of this experience</a>
-        </p>
-      </div>
+      <p class="mt-10 text-ink-soft">
+        Industries include healthcare and life sciences, financial services, industrials and manufacturing, aerospace and defense, business services and technology. <a href="/experience/" class="link-arrow">See examples of our experience</a>
+      </p>
     </div>
   </section>
 

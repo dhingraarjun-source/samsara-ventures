@@ -6,11 +6,11 @@
  *
  * context:
  *   'samsara' = about work delivered by Samsara Ventures
- *   'prior'   = about work Arjun led at a previous firm (shown with a small label)
+ *   'prior'   = about work done at a previous firm (shown with a small label)
  *
  * Example:
  * {
- *   quote: 'Arjun ran our carve-out with a level of detail and calm that kept the business running through Day 1.',
+ *   quote: 'They ran our carve-out with a level of detail and calm that kept the business running through Day 1.',
  *   name: 'Jane Smith',                      // optional; leave out to attribute by role only
  *   role: 'Operating Partner',
  *   organization: 'Mid-market private equity firm',

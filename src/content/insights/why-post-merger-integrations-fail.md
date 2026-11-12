@@ -2,7 +2,7 @@
 title: "Why Post-Merger Integrations Fail: Lessons from the First 100 Days"
 description: "Common reasons integrations fall behind in the first few months after close, and practical steps acquirers can take before and after Day 1."
 category: "M&A and Transactions"
-author: "Arjun Dhingra"
+author: "Samsara Ventures"
 draft: false
 publishDate: 2026-11-02
 readingOrder: 2
@@ -11,7 +11,7 @@ useWhen: "A deal is heading toward close and you are planning governance, synerg
 
 Integrations don't usually fail all at once. More often they fall behind gradually. Decisions take longer than planned, a few synergy initiatives slip a quarter, some good people leave, and customers start to notice small changes in service. By the time the shortfall is visible in the numbers, the causes go back months.
 
-When I look at integrations that struggled, many of those causes trace back to the first hundred days, and some to the weeks before close. That early period is when people in the combined organization figure out how decisions get made and whether the integration plan is something leadership really means. Below are the issues I see most often and what tends to help.
+When we look at integrations that struggled, many of those causes trace back to the first hundred days, and some to the weeks before close. That early period is when people in the combined organization figure out how decisions get made and whether the integration plan is something leadership really means. Below are the issues we see most often and what tends to help.
 
 ## Planning starts too late
 
@@ -41,7 +41,7 @@ By the end of the first hundred days, you should have a validated synergy baseli
 
 A smooth Day 1 matters. Payroll has to run, customers need to be served, systems have to work, and employees need to know what's happening. But some teams put so much into Day 1 that there's very little planned for the weeks after.
 
-A simple test is to ask the integration team what they'll be working on in week three, week six and week twelve. If the answers are vague, the program will probably lose pace once the business settles back into its routine. I've covered how to keep that cadence going in a separate piece on [building an execution PMO](/insights/building-an-effective-execution-pmo/).
+A simple test is to ask the integration team what they'll be working on in week three, week six and week twelve. If the answers are vague, the program will probably lose pace once the business settles back into its routine. We've covered how to keep that cadence going in a separate piece on [building an execution PMO](/insights/building-an-effective-execution-pmo/).
 
 ## People are left guessing
 

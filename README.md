@@ -19,7 +19,7 @@ Built with [Astro](https://astro.build), TypeScript and Tailwind CSS. Every page
 
 ```
 src/
-  config/site.ts          Contact email, booking link, form endpoint, founder details, navigation
+  config/site.ts          Contact email, booking link, form endpoint, navigation
   data/services.ts        All copy for the three service pillars and their pages
   data/experience.ts      Anonymized experience examples
   content/insights/       Insights articles (one Markdown file per article)
@@ -80,24 +80,17 @@ Your Squarespace DNS records do not need to change.
 
 | What to change | Where |
 | --- | --- |
-| Email, booking link, form endpoint, founder name and title | `src/config/site.ts` |
+| Email, booking link, form endpoint | `src/config/site.ts` |
 | Navigation menu | `mainNav` in `src/config/site.ts` |
 | Service pillar copy (homepage, Services page, each service page) | `src/data/services.ts` |
 | Experience examples | `src/data/experience.ts` |
 | Homepage sections | `src/pages/index.astro` |
-| About page and founder biography | `src/pages/about.astro` |
+| About page | `src/pages/about.astro` |
 | Contact page | `src/pages/contact.astro` |
 | Colors and fonts | `@theme` block in `src/styles/global.css` |
 
 Edit the text between the quotes, save, and push. The site rebuilds automatically.
 
-### Add the founder photo and LinkedIn link
-
-1. Save a portrait photo (about 640 x 800 pixels) as `public/img/founder.jpg`.
-2. In `src/config/site.ts`, set `photo: '/img/founder.jpg'`.
-3. Set `linkedinUrl` to the full profile URL, or add a GitHub Actions variable named `PUBLIC_FOUNDER_LINKEDIN`.
-
-The photo (`public/img/founder.jpg`) and LinkedIn URL are already set. If `photo` is ever left empty, the About page shows an "AD" monogram instead.
 
 ---
 
@@ -111,7 +104,7 @@ The photo (`public/img/founder.jpg`) and LinkedIn URL are already set. If `photo
    title: "Your article title"
    description: "One or two sentences, under 170 characters. Used in search results."
    category: "M&A and Transactions"
-   author: "Arjun Dhingra"
+   author: "Samsara Ventures"
    draft: true
    ---
    ```
@@ -163,4 +156,3 @@ These are marked in yellow when you preview with `PUBLIC_SHOW_DRAFTS=true`:
 
 - **Experience examples** in `src/data/experience.ts`: confirm each client description is cleared for publication. Remove the `confirm` note once it is.
 - **Three Insights articles:** review, edit and approve before publishing.
-- **Founder title:** set to "Founder & Managing Partner" as requested. Your resume says "Founder & Principal Consultant"; change `founder.title` in `site.ts` if you prefer that.

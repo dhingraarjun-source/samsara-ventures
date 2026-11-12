@@ -8,8 +8,8 @@ import { site } from '@/config/site';
 import { breadcrumbSchema } from '@/utils/schema';
 
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Experience', href: '/experience/' }];
-const label = { samsara: 'Samsara Ventures engagement', prior: 'Founder’s prior experience at a previous firm' } as const;
-const roleLabel = { samsara: 'Our role', prior: 'Founder’s role' } as const;
+const label = { samsara: 'Samsara Ventures engagement', prior: 'Experience before Samsara Ventures' } as const;
+const roleLabel = { samsara: 'Our role', prior: 'Role' } as const;
 
 // Surface unresolved publication notes in the build log so they are not forgotten.
 const unresolved = experienceGroups.flatMap((g) => g.items.filter((i) => i.confirm).map((i) => i.title));

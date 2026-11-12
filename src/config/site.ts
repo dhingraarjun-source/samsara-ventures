@@ -27,16 +27,6 @@ export const site = {
   formEndpoint:
     env.PUBLIC_FORM_ENDPOINT === 'none' ? '' : env.PUBLIC_FORM_ENDPOINT || 'https://formspree.io/f/mbggzona',
 
-  /** Founder details used on the About page. */
-  founder: {
-    name: 'Arjun Dhingra',
-    title: 'Founder & Managing Partner',
-    /** Full LinkedIn profile URL. */
-    linkedinUrl: env.PUBLIC_FOUNDER_LINKEDIN || 'https://www.linkedin.com/in/arjundhingra/',
-    /** Portrait photo in /public (640 x 800). */
-    photo: '/img/founder.jpg',
-  },
-
   /** Default social sharing image (1200 x 630) in /public. */
   ogImage: '/img/og-image.jpg',
 

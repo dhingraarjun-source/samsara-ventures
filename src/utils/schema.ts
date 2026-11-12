@@ -75,20 +75,10 @@ export function articleSchema(opts: {
     url: abs(opts.path),
     mainEntityOfPage: abs(opts.path),
     image: abs(site.ogImage),
-    author: { '@type': 'Person', name: opts.author },
+    author: opts.author === site.name ? { '@id': abs('/#organization') } : { '@type': 'Person', name: opts.author },
     publisher: { '@id': abs('/#organization') },
     ...(opts.datePublished ? { datePublished: opts.datePublished.toISOString() } : {}),
     ...(opts.dateModified ? { dateModified: opts.dateModified.toISOString() } : {}),
   };
 }
 
-export function personSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: site.founder.name,
-    jobTitle: site.founder.title,
-    worksFor: { '@id': abs('/#organization') },
-    ...(site.founder.linkedinUrl ? { sameAs: [site.founder.linkedinUrl] } : {}),
-  };
-}

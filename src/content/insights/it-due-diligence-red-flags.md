@@ -2,7 +2,7 @@
 title: "Five IT Due Diligence Red Flags Private Equity Firms Shouldn't Ignore"
 description: "The technology issues that tend to change a deal's economics after signing, and the questions that help surface them during diligence."
 category: "M&A and Transactions"
-author: "Arjun Dhingra"
+author: "Samsara Ventures"
 draft: false
 publishDate: 2026-11-02
 readingOrder: 1
@@ -11,9 +11,9 @@ useWhen: "You are evaluating a target and need to decide which technology and op
 
 IT diligence usually gets squeezed. It happens in the same few weeks as everything else, the data room is incomplete, and the people who really understand the systems are often not in the room. Under that kind of pressure, it is tempting to treat technology as a checklist item and move on.
 
-In my experience, a lot of post-close surprises start there. Technology issues rarely stop a deal, but they often add cost and delay that nobody planned for. A core system that needs replacing, a business that depends on its parent's infrastructure, or a security problem that has to be fixed before anything else can move forward will all show up in the first year of ownership whether you priced them in or not.
+In our experience, a lot of post-close surprises start there. Technology issues rarely stop a deal, but they often add cost and delay that nobody planned for. A core system that needs replacing, a business that depends on its parent's infrastructure, or a security problem that has to be fixed before anything else can move forward will all show up in the first year of ownership whether you priced them in or not.
 
-You do not need to review every application to avoid this. What you need is a clear view of the handful of issues that could affect the investment case. These are the five I would look at first.
+You do not need to review every application to avoid this. What you need is a clear view of the handful of issues that could affect the investment case. These are the five we would look at first.
 
 ## 1. An aging or heavily customized core platform
 
@@ -49,7 +49,7 @@ Every one of these needs to be replaced, transitioned or covered by a transition
 - Where does the company's data sit, and who controls access to it?
 - What will the seller provide under a TSA, for how long and at what cost?
 
-Having this picture early gives the deal team a stronger position when negotiating standalone costs and TSA terms, and a realistic starting point for the separation plan. I've written more about what happens after close in [why post-merger integrations fail](/insights/why-post-merger-integrations-fail/).
+Having this picture early gives the deal team a stronger position when negotiating standalone costs and TSA terms, and a realistic starting point for the separation plan. We've written more about what happens after close in [why post-merger integrations fail](/insights/why-post-merger-integrations-fail/).
 
 ## 4. Cybersecurity that hasn't been tested
 

@@ -2,7 +2,7 @@
 title: "From Investment Thesis to Value Creation: Building an Effective Execution PMO"
 description: "How sponsors and management teams can set up an execution PMO that keeps a value creation plan on track without adding unnecessary reporting."
 category: "Private Equity Value Creation"
-author: "Arjun Dhingra"
+author: "Samsara Ventures"
 draft: false
 publishDate: 2026-11-02
 readingOrder: 3
@@ -19,7 +19,7 @@ An execution program management office, or PMO, is meant to fix that. Set up wel
 
 An execution PMO is a small team that makes sure the value creation plan gets delivered. It runs the cadence, keeps the data and manages escalations. The initiatives themselves should stay with the management team.
 
-I think this distinction matters a lot. If the PMO takes over initiatives, it becomes a second management team and the company never builds the ability to deliver on its own. If it only collects status updates, it adds overhead without changing much. The model that works best is in between, with management owning delivery and the PMO helping it stay visible, coordinated and on schedule.
+This distinction matters a lot. If the PMO takes over initiatives, it becomes a second management team and the company never builds the ability to deliver on its own. If it only collects status updates, it adds overhead without changing much. The model that works best is in between, with management owning delivery and the PMO helping it stay visible, coordinated and on schedule.
 
 ## Start with the investment thesis
 
@@ -85,7 +85,7 @@ A good check is whether each meeting ends with decisions made. If most of the ti
 
 ## Tie it back to the financials
 
-The most common weakness I see in value creation reporting is a disconnect between initiative progress and the P&L. An initiative can be on schedule while the savings never appear, because the baseline moved, the cost shifted somewhere else or the same benefit was counted twice.
+The most common weakness we see in value creation reporting is a disconnect between initiative progress and the P&L. An initiative can be on schedule while the savings never appear, because the baseline moved, the cost shifted somewhere else or the same benefit was counted twice.
 
 The PMO should work closely with finance to agree baselines up front, define how each benefit will be measured and regularly reconcile reported value with actual results. It's not the most exciting part of the work, but it's what gives the board confidence in the numbers.
 
@@ -109,7 +109,7 @@ If you're setting up an execution PMO, a reasonable sequence looks like this:
 
 By the end of that period, the company should have a plan people believe in, a routine that keeps it moving, and reporting the board trusts.
 
-Integrations follow many of the same principles. If you're working through an acquisition, you may also find my notes on [why post-merger integrations fail](/insights/why-post-merger-integrations-fail/) useful.
+Integrations follow many of the same principles. If you're working through an acquisition, you may also find our notes on [why post-merger integrations fail](/insights/why-post-merger-integrations-fail/) useful.
 
 ## How we can help
 

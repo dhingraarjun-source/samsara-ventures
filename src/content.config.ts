@@ -19,7 +19,7 @@ const insights = defineCollection({
     title: z.string(),
     description: z.string().max(170),
     category: z.enum(insightCategories),
-    author: z.string().default('Arjun Dhingra'),
+    author: z.string().default('Samsara Ventures'),
     /** Drafts are hidden from the live site, the sitemap and search engines. */
     draft: z.boolean().default(true),
     /** Required before an article goes live. Leave empty while it is a draft. */
